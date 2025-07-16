@@ -11,10 +11,11 @@ import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
-import Profile from "./components/Profile"; 
+import Profile from "./components/Profile";
 import Dashboard from "./components/dashboard";
+import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breath on it please 🙏
 
-
+// Main App component with routing and logic
 const App = ({ user, setUser }) => {
   const navigate = useNavigate();
 
@@ -30,23 +31,19 @@ const App = ({ user, setUser }) => {
     }
   };
 
-  // Check authentication status on app load
   useEffect(() => {
     checkAuth();
   }, []);
 
   const handleLogout = async () => {
     try {
-      // Logout from our backend
       await axios.post(
         `${API_URL}/auth/logout`,
         {},
-        {
-          withCredentials: true,
-        }
+        { withCredentials: true }
       );
       setUser(null);
-      navigate("/"); // Redirect to home after logout
+      navigate("/");
     } catch (error) {
       console.error("Logout error:", error);
     }
@@ -70,15 +67,24 @@ const App = ({ user, setUser }) => {
   );
 };
 
+// Root component with providers (Auth0, Router, Auth Context)
 const Root = () => {
-  const [user, setUser] = React.useState(null);
+  const [user, setUser] = useState(null);
 
   return (
-    <AuthProvider user={user} setUser={setUser}>
-      <Router>
-        <App user={user} setUser={setUser} />
-      </Router>
-    </AuthProvider>
+    <Auth0Provider
+      domain="dev-m71z1z5w3vgzg8av.us.auth0.com"
+      clientId="FAMANGWJ1UJPsgkSumuMNdLFgewVBW5Y"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <AuthProvider user={user} setUser={setUser}>
+        <Router>
+          <App user={user} setUser={setUser} />
+        </Router>
+      </AuthProvider>
+    </Auth0Provider>
   );
 };
 
