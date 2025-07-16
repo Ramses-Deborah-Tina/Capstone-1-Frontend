@@ -3,7 +3,12 @@ import { createRoot } from "react-dom/client";
 import axios from "axios";
 import "./AppStyles.css";
 import NavBar from "./components/NavBar";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Create from "./components/create";
@@ -37,11 +42,7 @@ const App = ({ user, setUser }) => {
 
   const handleLogout = async () => {
     try {
-      await axios.post(
-        `${API_URL}/auth/logout`,
-        {},
-        { withCredentials: true }
-      );
+      await axios.post(`${API_URL}/auth/logout`, {}, { withCredentials: true });
       setUser(null);
       navigate("/");
     } catch (error) {
@@ -59,7 +60,10 @@ const App = ({ user, setUser }) => {
           <Route path="/create" element={<Create setUser={setUser} />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile user={user} setUser={setUser} />} />
+          <Route
+            path="/profile"
+            element={<Profile user={user} setUser={setUser} />}
+          />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -71,12 +75,19 @@ const App = ({ user, setUser }) => {
 const Root = () => {
   const [user, setUser] = useState(null);
 
+  // Use Vite-compatible env variables
+  const domain = import.meta.env.VITE_AUTH0_DOMAIN;
+  const clientId = import.meta.env.VITE_AUTH0_CLIENT_ID;
+  const audience = import.meta.env.VITE_AUTH0_AUDIENCE;
+  const redirectUri = import.meta.env.VITE_AUTH0_CALLBACK_URL;
+
   return (
     <Auth0Provider
-      domain="dev-m71z1z5w3vgzg8av.us.auth0.com"
-      clientId="FAMANGWJ1UJPsgkSumuMNdLFgewVBW5Y"
+      domain={domain}
+      clientId={clientId}
       authorizationParams={{
-        redirect_uri: window.location.origin,
+        redirect_uri: redirectUri,
+        audience: audience,
       }}
     >
       <AuthProvider user={user} setUser={setUser}>
