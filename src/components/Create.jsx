@@ -1,5 +1,6 @@
 import React, { useState, useContext } from "react";
 import { AuthContext } from "../components/AuthContext";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
 // Initial state constants for easy reset
@@ -8,6 +9,10 @@ const initialDuration = "";
 
 const Create = () => {
   const { isLoggedIn } = useContext(AuthContext);
+  const { isAuthenticated: isAuth0Authenticated, isLoading: auth0Loading } = useAuth0();
+
+  // Combined logged-in state (backend OR Auth0)
+  const isUserLoggedIn = isLoggedIn || isAuth0Authenticated;
 
   // State for questions and duration
   const [questions, setQuestions] = useState(initialQuestions);
@@ -92,8 +97,13 @@ const Create = () => {
     // Add API call here
   };
 
-  // If not logged in, show login prompt
-  if (!isLoggedIn) {
+  // Show loading if Auth0 still checking auth state
+  if (auth0Loading) {
+    return <div>Loading...</div>;
+  }
+
+  // If not logged in via either backend or Auth0, show login prompt
+  if (!isUserLoggedIn) {
     return (
       <div>
         <h2>You must be logged in to create a poll.</h2>
