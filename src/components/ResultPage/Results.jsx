@@ -15,6 +15,7 @@ const PollApp = () => {
   return (
     <div className="poll-container">
       <div className="poll-box">
+        <div>
         <p className="poll-category">WEB DESIGN</p>
         <h1 className="poll-question">What design tool do you use the most?</h1>
         <p className="poll-meta">Asked by anonymous about 3 hours ago</p>
@@ -25,9 +26,13 @@ const PollApp = () => {
             <ResultOption option={option} percentage={percentage} key={idx} />
           );
         })}
+        </div>
 
+        <div className="poll-actions">
         <button className="poll-button">Submit your vote</button>
+        <div className="poll-stats">
 
+        
         <div className="poll-total">
           <p>Votes</p>
           <p className="poll-total-number">{totalVotes}</p>
@@ -37,6 +42,8 @@ const PollApp = () => {
           <a href="#">Twitter</a>
           <a href="#">Facebook</a>
           <a href="#">Copy Link</a>
+        </div>
+        </div>
         </div>
       </div>
     </div>
