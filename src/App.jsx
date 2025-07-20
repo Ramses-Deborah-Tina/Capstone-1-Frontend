@@ -3,7 +3,12 @@ import { createRoot } from "react-dom/client";
 import axios from "axios";
 import "./AppStyles.css";
 import NavBar from "./components/NavBar";
-import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Create from "./components/create";
@@ -11,10 +16,9 @@ import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
-import Profile from "./components/Profile"; 
+import Profile from "./components/Profile";
 import Dashboard from "./components/dashboard";
-import Result from "./components/ResultPage/Result.jsx";
-
+import Result from "./components/ResultPage/Results.jsx";
 
 const App = ({ user, setUser }) => {
   const navigate = useNavigate();
@@ -63,7 +67,10 @@ const App = ({ user, setUser }) => {
           <Route path="/create" element={<Create setUser={setUser} />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/profile" element={<Profile user={user} setUser={setUser} />} />
+          <Route
+            path="/profile"
+            element={<Profile user={user} setUser={setUser} />}
+          />
           <Route path="/results" element={<Result />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
