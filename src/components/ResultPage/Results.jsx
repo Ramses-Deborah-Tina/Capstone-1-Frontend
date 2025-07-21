@@ -14,12 +14,16 @@ const PollApp = () => {
 
   return (
     <div className="poll-container">
-      <div className="poll-box">
-        <div>
-        <p className="poll-category">WEB DESIGN</p>
+        <p className="poll-category">Open</p>
         <h1 className="poll-question">What design tool do you use the most?</h1>
         <p className="poll-meta">Asked by anonymous about 3 hours ago</p>
+      <div className="poll-box">
 
+        <div className="poll-graph">
+
+        </div>
+        
+        <div className="poll-options">
         {pollData.map((option, idx) => {
           const percentage = ((option.votes / totalVotes) * 100).toFixed(0);
           return (
@@ -30,19 +34,21 @@ const PollApp = () => {
 
         <div className="poll-actions">
         <button className="poll-button">Submit your vote</button>
+
         <div className="poll-stats">
+          <div className="poll-total">
+            <p className="poll-total-header">Votes</p>
+            <p className="poll-total-number">{totalVotes}</p>
+          </div>
 
-        
-        <div className="poll-total">
-          <p>Votes</p>
-          <p className="poll-total-number">{totalVotes}</p>
-        </div>
+          <div className="grey-line"></div>
 
-        <div className="poll-share">
-          <a href="#">Twitter</a>
-          <a href="#">Facebook</a>
-          <a href="#">Copy Link</a>
-        </div>
+          <div className="poll-share">
+            <p>Share</p>
+            <a href="#">Twitter</a>
+            <a href="#">Facebook</a>
+            <a href="#">Copy Link</a>
+          </div>
         </div>
         </div>
       </div>
