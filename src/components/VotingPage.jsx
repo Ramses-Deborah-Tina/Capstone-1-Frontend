@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// Simulate poll data and user login
-const mockUser = { username: "testuser" };
+// Remove mockUser, expect actual user prop to be passed
+// const mockUser = { username: "testuser" };
 
 const fallbackPoll = {
   questions: [
@@ -20,32 +20,26 @@ const fallbackPoll = {
   endDate: "2025-07-20",
 };
 
-const VotingPage = () => {
+const VotingPage = ({ user }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // Replace with actual poll data source
   const poll = location.state?.poll || fallbackPoll;
 
-  // State for rankings (select-based ranking)
-  const [rankings, setRankings] = useState(
-    poll.questions.map((q) => Array(q.options.length).fill(""))
-  );
-  // Track if ballot was submitted
+  // Rankings state now resets when poll changes 
+  const [rankings, setRankings] = useState([]);
+
+  useEffect(() => {
+    setRankings(poll.questions.map((q) => Array(q.options.length).fill("")));
+  }, [poll]);
+
   const [submitted, setSubmitted] = useState(false);
-  // Track if user tried to submit incomplete ballot
   const [warning, setWarning] = useState(false);
-  // Track if user saved for later
   const [saved, setSaved] = useState(false);
-
-  // Prevent duplicate submissions
   const [hasVoted, setHasVoted] = useState(false);
-
-  // Email state for results notification
   const [email, setEmail] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
 
-  // Handle ranking selection
   const handleRankChange = (qIdx, oIdx, rank) => {
     setRankings((prev) =>
       prev.map((ranks, idx) =>
@@ -56,7 +50,6 @@ const VotingPage = () => {
     );
   };
 
-  // Check if all rankings are complete and unique per question
   const isRankingComplete = () =>
     rankings.every((ranks) => {
       const filled = ranks.filter((r) => r !== "");
@@ -64,10 +57,9 @@ const VotingPage = () => {
       return filled.length === ranks.length && unique;
     });
 
-  // Submit vote
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (hasVoted) return; // Prevent duplicate submissions
+    if (hasVoted) return;
     if (!isRankingComplete()) {
       setWarning(true);
       return;
@@ -75,21 +67,24 @@ const VotingPage = () => {
     setWarning(false);
     setSubmitted(true);
     setHasVoted(true);
-    // Rankings submitted, now prompt for email
+    // TODO: submit rankings to backend here
   };
 
-  // Handle email submission
   const handleEmailSubmit = (e) => {
     e.preventDefault();
     if (!email) return;
     setEmailSubmitted(true);
     // TODO: Send email to backend to receive results
-    setTimeout(() => navigate("/dashboard"), 2000); // Redirect after confirmation
+    setTimeout(() => navigate("/dashboard"), 2000);
   };
 
-  // Save for later (if logged in)
+  // Save for later now saves rankings to localStorage as placeholder 
   const handleSaveForLater = () => {
-    // TODO: Save rankings to backend or localStorage
+    if (!user) return; // Only logged-in users can save
+    localStorage.setItem(
+      `savedRankings_${user.username}_${poll.endDate}`,
+      JSON.stringify(rankings)
+    );
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
   };
@@ -105,11 +100,18 @@ const VotingPage = () => {
         </strong>
       </p>
       {hasVoted && (
-        <div style={{ color: "red" }}>You have already submitted your ballot.</div>
+        <div style={{ color: "red" }}>
+          You have already submitted your ballot.
+        </div>
       )}
       {warning && (
         <div style={{ color: "orange" }}>
           Please rank all options uniquely for each question!
+        </div>
+      )}
+      {saved && (
+        <div style={{ color: "blue" }}>
+          Rankings saved! You can come back later to submit.
         </div>
       )}
       {submitted && !emailSubmitted && (
@@ -120,7 +122,7 @@ const VotingPage = () => {
           <input
             type="email"
             value={email}
-            onChange={e => setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             placeholder="Enter your email"
             required
             style={{ margin: "1em 0", padding: "0.5em" }}
@@ -142,9 +144,8 @@ const VotingPage = () => {
                 {q.options.map((option, oIdx) => (
                   <div key={oIdx} style={{ marginBottom: "0.5em" }}>
                     <span>{option}</span>
-                    {/* Select rank for each option */}
                     <select
-                      value={rankings[qIdx][oIdx]}
+                      value={rankings[qIdx]?.[oIdx] || ""}
                       onChange={(e) =>
                         handleRankChange(qIdx, oIdx, e.target.value)
                       }
@@ -172,7 +173,8 @@ const VotingPage = () => {
           >
             Submit Vote
           </button>
-          {mockUser && (
+          {/* Use real user prop instead of mockUser */}
+          {user && (
             <button
               type="button"
               onClick={handleSaveForLater}
