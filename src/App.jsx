@@ -71,7 +71,7 @@ const App = ({ user, setUser }) => {
             path="/profile"
             element={<Profile user={user} setUser={setUser} />}
           />
-          <Route path="/results" element={<Result />} />
+          <Route path="/result" element={<Result />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
