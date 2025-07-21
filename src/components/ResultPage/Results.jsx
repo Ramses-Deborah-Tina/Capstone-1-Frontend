@@ -1,6 +1,7 @@
 import React from "react";
 import "./Results.css";
 import ResultOption from "./ResultOption";
+import PieChartResult from "./PieChartResult";
 
 const pollData = [
   { title: "Photoshop", votes: 8, color: "#f87171" },
@@ -20,7 +21,7 @@ const PollApp = () => {
       <div className="poll-box">
 
         <div className="poll-graph">
-
+          <PieChartResult pollData={pollData}/>
         </div>
         
         <div className="poll-options">
@@ -45,9 +46,9 @@ const PollApp = () => {
 
           <div className="poll-share">
             <p>Share</p>
-            <a href="#">Twitter</a>
-            <a href="#">Facebook</a>
-            <a href="#">Copy Link</a>
+            {/* <a href="#">Twitter</a>
+            <a href="#">Facebook</a> */}
+            <a onClick={() => navigator.clipboard.writeText(location.href)}>Copy Link</a>
           </div>
         </div>
         </div>
