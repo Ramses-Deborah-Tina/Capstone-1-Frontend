@@ -1,0 +1,49 @@
+.overview-cards {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #4097fb;
+    padding: 1.5rem;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+  }
+  
+  .card {
+    background: white;
+    color: black;
+    border-radius: 10px;
+    padding: 1rem;
+    margin: 0.5rem;
+    min-width: 180px;
+    flex: 1;
+    text-align: center;
+  }
+  
+  .card-title {
+    font-weight: bold;
+    font-size: 1rem;
+  }
+  
+  .card-value {
+    font-size: 1.8rem;
+    margin: 0.5rem 0;
+  }
+  
+  .card-sub {
+    font-size: 0.9rem;
+    color: #555;
+  }
+  
+  .create-project-btn {
+    background-color: #ffffff;
+    color: #000;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  
