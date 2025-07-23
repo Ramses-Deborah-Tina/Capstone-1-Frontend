@@ -1,41 +1,41 @@
 // components/ActiveProjects.jsx
-import React from 'react';
-import './ActiveProjects.css';
+import React from "react";
+import "./ActiveProjects.css";
 
 const projects = [
   {
-    name: 'Dropbox Design System',
+    name: "Dropbox Design System",
     hours: 34,
-    priority: '',
-    members: ['👤', '👤', '👤', '👤'],
+    priority: "",
+    members: ["👤", "👤", "👤", "👤"],
     progress: 15,
   },
   {
-    name: 'Slack Team UI Design',
+    name: "Slack Team UI Design",
     hours: 47,
-    priority: '',
-    members: ['👤', '👤', '👤'],
+    priority: "",
+    members: ["👤", "👤", "👤"],
     progress: 35,
   },
   {
-    name: 'GitHub Satellite',
+    name: "GitHub Satellite",
     hours: 120,
-    priority: 'Low',
-    members: ['👤', '👤', '👤', '👤'],
+    priority: "Low",
+    members: ["👤", "👤", "👤", "👤"],
     progress: 75,
   },
   {
-    name: '3D Character Modelling',
+    name: "3D Character Modelling",
     hours: 89,
-    priority: '',
-    members: ['👤', '👤', '👤'],
+    priority: "",
+    members: ["👤", "👤", "👤"],
     progress: 63,
   },
   {
-    name: 'Webapp Design System',
+    name: "Webapp Design System",
     hours: 108,
-    priority: '',
-    members: ['👤', '👤', '👤', '👤'],
+    priority: "",
+    members: ["👤", "👤", "👤", "👤"],
     progress: 100,
   },
 ];
