@@ -1,6 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
-require("dotenv").config();
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
   mode: "development",
@@ -12,8 +12,9 @@ module.exports = {
   },
   devtool: "source-map",
   plugins: [
+    new Dotenv(), //  Loads all .env variables (including VITE_AUTH0_DOMAIN etc.)
     new webpack.EnvironmentPlugin({
-      API_URL: "http://localhost:8080",
+      API_URL: "http://localhost:8080", // fallback if .env doesn't provide it
     }),
   ],
   module: {
@@ -42,7 +43,6 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    historyApiFallback: true,
     port: 3000,
   },
 };
