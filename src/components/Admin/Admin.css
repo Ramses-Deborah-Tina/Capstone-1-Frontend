@@ -1,17 +1,19 @@
 .dashboard {
-    /* max-width: 1200px; */
-    margin: 0 auto;
-    /* padding: 2rem; */
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    min-height: 100vh;
-    font-family: 'Inter', sans-serif;
-    width: 100%;
-    background-color: #f9fafb; /* soft light gray background
+  /* max-width: 1200px; */
+  margin: 0 auto;
+  /* padding: 2rem; */
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  min-height: 100vh;
+  font-family: "Inter", sans-serif;
+  width: 100%;
+  /* soft light gray background
   }
   
   .admin-container {
     width: 100%;
     background-color: #f9fafb; /* soft light gray background */
-  }
+  background-color: #eaecef; /* Overall background */
+  padding-bottom: 6rem;
+}

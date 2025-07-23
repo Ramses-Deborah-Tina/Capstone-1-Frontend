@@ -1,5 +1,62 @@
 .active-projects {
-  background-color: #eaecef;
   height: 100vh;
   width: 100%;
+  background-color: #eaecef;
+  padding: 2rem;
+  margin-top: 6rem;
+  z-index: 0;
+}
+
+.projects-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.projects-table th,
+.projects-table td {
+  padding: 1rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.priority-tag {
+  background-color: #ffd700;
+  padding: 0.2rem 0.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.members {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.member-avatar {
+  background-color: #ccc;
+  border-radius: 50%;
+  padding: 0.5rem;
+  font-size: 0.9rem;
+}
+
+.progress-bar-container {
+  position: relative;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+}
+
+.progress-bar {
+  position: absolute;
+  height: 100%;
+  background-color: #4097fb;
+  border-radius: 5px;
+}
+
+.progress-text {
+  margin-left: 0.5rem;
+  font-size: 0.9rem;
 }
