@@ -5,10 +5,12 @@ import OverviewCards from './OverviewCards';
 
 const Admin = () => {
   return (
-    <div className="dashboard">
-      <OverviewCards />
-      <ActiveProjects />
-    </div>
+    
+        <div className="dashboard">
+        <OverviewCards />
+        <ActiveProjects />
+        </div>
+    
   );
 };
 

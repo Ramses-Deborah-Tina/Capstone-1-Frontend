@@ -11,6 +11,7 @@ const OverviewCards = () => {
 
   return (
     <div className="overview-cards">
+        <h2>Admin Dashboard</h2>
       {cards.map((card, idx) => (
         <div key={idx} className="card">
           <div className="card-title">{card.title}</div>

@@ -1,13 +1,21 @@
 .overview-cards {
     display: flex;
-    align-items: center;
+    /* align-items: flex-start; */
     justify-content: space-between;
     background: #4097fb;
     padding: 1.5rem;
-    border-radius: 8px;
     color: white;
     margin-bottom: 2rem;
+    flex-direction: column;
+  }
+
+  .cards-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     flex-wrap: wrap;
+    flex-direction: row;
+    gap: 1rem;
   }
   
   .card {
