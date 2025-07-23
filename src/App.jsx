@@ -18,6 +18,7 @@ import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile";
 import Dashboard from "./components/dashboard";
+import ProtectedRoute from "./components/ProtectedRoute"; // ✅ Protect routes
 import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breath on it please 🙏
 
 // Main App component with routing and logic
@@ -60,10 +61,17 @@ const App = ({ user, setUser }) => {
           <Route path="/create" element={<Create setUser={setUser} />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          
+          {/* ✅ Protected route added here for Profile */}
           <Route
             path="/profile"
-            element={<Profile user={user} setUser={setUser} />}
+            element={
+              <ProtectedRoute>
+                <Profile user={user} setUser={setUser} />
+              </ProtectedRoute>
+            }
           />
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
@@ -79,7 +87,7 @@ const Root = () => {
   const domain = process.env.VITE_AUTH0_DOMAIN;
   const clientId = process.env.VITE_AUTH0_CLIENT_ID;
   const audience = process.env.VITE_AUTH0_AUDIENCE;
-  const redirectUri = process.env.VITE_AUTH0_CALLBACK_URL; 
+  const redirectUri = process.env.VITE_AUTH0_CALLBACK_URL;
 
   return (
     <Auth0Provider
