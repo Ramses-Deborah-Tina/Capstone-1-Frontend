@@ -35,7 +35,7 @@ const NavBar = ({ user, onLogout }) => {
 
         {/* Show Dashboard only if authenticated */}
         {(user || isAuthenticated) && (
-          <Link to="/dashboard" className="nav-link">
+          <Link to="/account" className="nav-link">           
             Dashboard
           </Link>
         )}

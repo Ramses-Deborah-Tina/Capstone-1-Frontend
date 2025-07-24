@@ -49,7 +49,7 @@ const Account = () => {
   };
 
   return (
-    <div className="dashboard-container">
+    <div className="account-container">
       <h2>📋 My Polls</h2>
       {/* Search/filter UI */}
       <input
