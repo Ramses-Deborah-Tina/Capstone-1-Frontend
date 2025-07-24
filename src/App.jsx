@@ -11,14 +11,14 @@ import {
 } from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import Create from "./components/create";
+import Create from "./components/Create";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
 import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile";
 import Account from "./components/Account";
-import ProtectedRoute from "./components/ProtectedRoute"; // ✅ Protect routes
+import ProtectedRoute from "./components/ProtectedRoute"; 
 import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breath on it please 🙏
 
 // Main App component with routing and logic
