@@ -17,7 +17,7 @@ import NotFound from "./components/NotFound";
 import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile";
-import Dashboard from "./components/Dashboard";
+import Dashboard from "./components/dashboard";
 import ProtectedRoute from "./components/ProtectedRoute"; // ✅ Protect routes
 import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breath on it please 🙏
 
