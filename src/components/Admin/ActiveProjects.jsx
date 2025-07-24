@@ -1,9 +1,10 @@
 // components/ActiveProjects.jsx
-import React from "react";
+import React, { useState } from "react";
 import {
   useReactTable,
   getCoreRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
   flexRender,
   createColumnHelper,
 } from "@tanstack/react-table";
@@ -78,6 +79,7 @@ const columns = [
       info.getValue() ? (
         <span className="priority-tag">{info.getValue()}</span>
       ) : null,
+    filterFn: "includesString",
   }),
   columnHelper.accessor("members", {
     header: "Members",
@@ -90,6 +92,7 @@ const columns = [
         ))}
       </div>
     ),
+    enableColumnFilter: false,
   }),
   columnHelper.accessor("progress", {
     header: "Progress",
@@ -102,14 +105,25 @@ const columns = [
         </div>
       );
     },
+    enableColumnFilter: false,
   }),
 ];
 
 const ActiveProjects = () => {
+  const [globalFilter, setGlobalFilter] = useState("");
+  const [columnFilters, setColumnFilters] = useState([]);
+
   const table = useReactTable({
     data: projects,
     columns,
+    state: {
+      globalFilter,
+      columnFilters,
+    },
+    onGlobalFilterChange: setGlobalFilter,
+    onColumnFiltersChange: setColumnFilters,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     initialState: {
       pagination: {
@@ -123,13 +137,47 @@ const ActiveProjects = () => {
     <div className="active-projects">
       <h2>Active Projects</h2>
 
+      {/* 🔍 Global Search */}
+      <input
+        type="text"
+        placeholder="Search projects..."
+        value={globalFilter ?? ""}
+        onChange={(e) => setGlobalFilter(e.target.value)}
+        className="search-input"
+      />
+
+      {/* 🎯 Column Filter: Priority */}
+      <div className="filter-controls">
+        <label>
+          Filter by Priority:
+          <select
+            value={
+              table
+                .getColumn("priority")
+                ?.getFilterValue() ?? ""
+            }
+            onChange={(e) =>
+              table.getColumn("priority")?.setFilterValue(e.target.value || undefined)
+            }
+          >
+            <option value="">All</option>
+            <option value="Low">Low</option>
+            <option value="High">High</option>
+            <option value="Urgent">Urgent</option>
+          </select>
+        </label>
+      </div>
+
       <table className="projects-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
             <tr key={headerGroup.id}>
               {headerGroup.headers.map((header) => (
                 <th key={header.id}>
-                  {flexRender(header.column.columnDef.header, header.getContext())}
+                  {flexRender(
+                    header.column.columnDef.header,
+                    header.getContext()
+                  )}
                 </th>
               ))}
             </tr>
@@ -148,7 +196,7 @@ const ActiveProjects = () => {
         </tbody>
       </table>
 
-      {/* Pagination Controls */}
+      {/* ⏮️ Pagination */}
       <div className="pagination-controls">
         <button
           onClick={() => table.previousPage()}
@@ -160,8 +208,7 @@ const ActiveProjects = () => {
         <span>
           Page{" "}
           <strong>
-            {table.getState().pagination.pageIndex + 1} of{" "}
-            {table.getPageCount()}
+            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
           </strong>
         </span>
 
