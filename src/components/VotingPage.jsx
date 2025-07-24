@@ -1,7 +1,9 @@
-import React, {useEffect, useState, useRef} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 const VotingPage = () => {
   const { pollId } = useParams();
@@ -21,10 +23,11 @@ const VotingPage = () => {
   useEffect(() => {
     const fetchPoll = async () => {
       try {
-        const { data } = await axios.get(`/api/polls/${pollId}`);
+        const { data } = await axios.get(`${API_BASE}/api/polls/${pollId}`);
         setPoll(data);
-        setRanking(data.options);
+        setRanking(data.options || []);
       } catch (err) {
+        console.error("Fetch poll error:", err);
         setError("Failed to load poll.");
       }
     };
@@ -49,28 +52,27 @@ const VotingPage = () => {
     e.preventDefault();
     if (hasVoted || !poll) return;
 
-    const isComplete = isRankingComplete();
-    if (!isComplete) {
+    if (!isRankingComplete()) {
       setWarning(true);
       setTimeout(() => {
         warningRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
       }, 100);
+      return;
     } else {
       setWarning(false);
     }
 
     try {
       const rankedOptionIds = ranking.map((opt) => opt.id);
-      await axios.post(`/api/ballots`, {
+      await axios.post(`${API_BASE}/api/ballots`, {
         pollId: poll.id,
         votes: rankedOptionIds,
       });
 
       setSubmitted(true);
-      setWarning(false);
       setHasVoted(true);
     } catch (err) {
-      console.error(err);
+      console.error("Vote submit error:", err);
       setError("Vote submission failed.");
     }
   };
@@ -80,14 +82,14 @@ const VotingPage = () => {
     if (!email || !pollId) return;
 
     try {
-      await axios.post(`/api/subscribe-results`, {
+      await axios.post(`${API_BASE}/api/subscribe-results`, {
         pollId,
         email,
       });
       setEmailSubmitted(true);
       setTimeout(() => navigate("/dashboard"), 2000);
     } catch (err) {
-      console.error(err);
+      console.error("Email submit error:", err);
       setError("Failed to save email.");
     }
   };
