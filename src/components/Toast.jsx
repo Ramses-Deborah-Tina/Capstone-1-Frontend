@@ -16,6 +16,8 @@ const Toast = () => {
 
 export default Toast;
 
-//This component is like a billboard where all your toast notifications appear.
-//It handles rendering and positioning of all toast messages globally.
-//The file is technically a wrapper component for the ToastContainer from the react-toastify library.
+/*
+  This component wraps the ToastContainer from react-toastify.
+  It should be included once in your app (e.g., in App.jsx) to enable toast notifications.
+  Toasts can then be triggered anywhere using toast.success(), toast.error(), etc.
+*/
