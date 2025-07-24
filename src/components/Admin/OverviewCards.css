@@ -22,10 +22,9 @@
   bottom: -90px;
   left: 0;
   width: 100%;
-  background-color: #eaecef;
   display: flex;
   justify-content: space-around;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   z-index: 1;
 }
 

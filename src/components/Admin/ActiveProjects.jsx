@@ -135,6 +135,7 @@ const ActiveProjects = () => {
 
   return (
     <div className="active-projects">
+      <div className="table-holder">
       <h2>Active Projects</h2>
 
       {/* 🔍 Global Search */}
@@ -218,6 +219,7 @@ const ActiveProjects = () => {
         >
           Next
         </button>
+      </div>
       </div>
     </div>
   );
