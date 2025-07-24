@@ -1,62 +1,82 @@
 .active-projects {
-  height: 100vh;
-  width: 100%;
-  background-color: #eaecef;
-  padding: 2rem;
-  margin-top: 6rem;
-  z-index: 0;
-}
-
-.projects-table {
-  width: 100%;
-  border-collapse: collapse;
-  background: white;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-}
-
-.projects-table th,
-.projects-table td {
-  padding: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #ddd;
-}
-
-.priority-tag {
-  background-color: #ffd700;
-  padding: 0.2rem 0.5rem;
-  border-radius: 5px;
-  font-weight: bold;
-}
-
-.members {
-  display: flex;
-  gap: 0.25rem;
-}
-
-.member-avatar {
-  background-color: #ccc;
-  border-radius: 50%;
-  padding: 0.5rem;
-  font-size: 0.9rem;
-}
-
-.progress-bar-container {
-  position: relative;
-  height: 10px;
-  background-color: #ddd;
-  border-radius: 5px;
-}
-
-.progress-bar {
-  position: absolute;
-  height: 100%;
-  background-color: #4097fb;
-  border-radius: 5px;
-}
-
-.progress-text {
-  margin-left: 0.5rem;
-  font-size: 0.9rem;
-}
+    padding: 1rem;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .projects-table th,
+  .projects-table td {
+    text-align: left;
+    padding: 0.75rem;
+    border-bottom: 1px solid #eee;
+  }
+  
+  .priority-tag {
+    background: #e0f2fe;
+    color: #0284c7;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 5px;
+  }
+  
+  .members {
+    display: flex;
+    gap: 0.25rem;
+  }
+  
+  .member-avatar {
+    width: 30px;
+    height: 30px;
+    background: #ddd;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 30px;
+    font-size: 0.8rem;
+  }
+  
+  .progress-bar-container {
+    position: relative;
+    background: #f1f5f9;
+    border-radius: 10px;
+    height: 10px;
+    width: 100%;
+  }
+  
+  .progress-bar {
+    background: #6366f1;
+    height: 100%;
+    border-radius: 10px;
+  }
+  
+  .progress-text {
+    font-size: 0.75rem;
+    margin-left: 0.5rem;
+  }
+  
+  .pagination-controls {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  
+  .pagination-controls button {
+    padding: 0.5rem 1rem;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  
+  .pagination-controls button:disabled {
+    background-color: #a5b4fc;
+    cursor: not-allowed;
+  }
+  
