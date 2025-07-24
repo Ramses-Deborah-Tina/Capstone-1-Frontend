@@ -9,55 +9,57 @@ import {
   createColumnHelper,
 } from "@tanstack/react-table";
 import "./ActiveProjects.css";
+import ToggleBtn from "./ToggleButton";
+// import defaultAvatar from "../../assets/user-avatar.png";
 
 const projects = [
   {
-    name: "Dropbox Design System",
-    hours: 34,
-    priority: "",
-    members: ["👤", "👤", "👤", "👤"],
+    name: "John Smith",
+    polls: 34,
+    status: "Active",
+    email: "johnsmith123@gmail.com",
     progress: 15,
   },
   {
-    name: "Slack Team UI Design",
-    hours: 47,
-    priority: "",
-    members: ["👤", "👤", "👤"],
+    name: "James Doe",
+    polls: 47,
+    status: "Active",
+    email: "JamesDoeDoe@gmail.com",
     progress: 35,
   },
   {
-    name: "GitHub Satellite",
-    hours: 120,
-    priority: "Low",
-    members: ["👤", "👤", "👤", "👤"],
+    name: "Kelly Johnson",
+    polls: 120,
+    status: "Suspended",
+    email: "kjhonson@yahoo.com",
     progress: 75,
   },
   {
-    name: "3D Character Modelling",
-    hours: 89,
-    priority: "",
-    members: ["👤", "👤", "👤"],
+    name: "Rachel Green",
+    polls: 89,
+    status: "Active",
+    email: "GreenRed@gmail.com",
     progress: 63,
   },
   {
-    name: "Webapp Design System",
-    hours: 108,
-    priority: "",
-    members: ["👤", "👤", "👤", "👤"],
+    name: "Robert Brown",
+    polls: 108,
+    status: "Suspended",
+    email: "theycallmebrown@yahoo.com",
     progress: 100,
   },
   {
-    name: "Mobile App Redesign",
-    hours: 55,
-    priority: "High",
-    members: ["👤", "👤"],
+    name: "Paul White",
+    polls: 55,
+    status: "Active",
+    email: "Walterwhite@gmail.com",
     progress: 42,
   },
   {
-    name: "AI Prototype",
-    hours: 200,
-    priority: "Urgent",
-    members: ["👤", "👤", "👤"],
+    name: "Susan Black",
+    polls: 200,
+    status: "Active",
+    email: "SuzzySusan@gmail.com",
     progress: 10,
   },
 ];
@@ -66,43 +68,45 @@ const columnHelper = createColumnHelper();
 
 const columns = [
   columnHelper.accessor("name", {
-    header: "Project Name",
+    header: "Name",
+    cell: (info) => {
+      const name = info.getValue();
+  
+      return (
+        <div className="user-cell">
+          <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" alt="avatar" className="user-avatar" />
+          <span className="user-name">{name}</span>
+        </div>
+      );
+    },
+  }),
+  columnHelper.accessor("polls", {
+    header: "Polls",
     cell: (info) => info.getValue(),
   }),
-  columnHelper.accessor("hours", {
-    header: "Hours",
-    cell: (info) => info.getValue(),
-  }),
-  columnHelper.accessor("priority", {
-    header: "Priority",
-    cell: (info) =>
-      info.getValue() ? (
-        <span className="priority-tag">{info.getValue()}</span>
-      ) : null,
-    filterFn: "includesString",
-  }),
-  columnHelper.accessor("members", {
-    header: "Members",
+  columnHelper.accessor("email", {
+    header: "Email",
     cell: (info) => (
-      <div className="members">
-        {info.getValue().map((m, i) => (
-          <span key={i} className="member-avatar">
-            {m}
-          </span>
-        ))}
+      <div className="email">
+        {info.getValue()}
       </div>
     ),
     enableColumnFilter: false,
   }),
-  columnHelper.accessor("progress", {
-    header: "Progress",
+  columnHelper.accessor("status", {
+    header: "Status",
+    cell: (info) =>
+      info.getValue() ? (
+        <span className={`status-tag-${info.getValue().toLowerCase()}`}>{info.getValue()}</span>
+      ) : null,
+    filterFn: "includesString",
+  }),
+  columnHelper.accessor("status", {
+    header: "Actions",
     cell: (info) => {
       const value = info.getValue();
       return (
-        <div className="progress-bar-container">
-          <div className="progress-bar" style={{ width: `${value}%` }} />
-          <span className="progress-text">{value}%</span>
-        </div>
+        <ToggleBtn initialStatus={value}/>
       );
     },
     enableColumnFilter: false,
@@ -136,39 +140,39 @@ const ActiveProjects = () => {
   return (
     <div className="active-projects">
       <div className="table-holder">
-      <h2>Active Projects</h2>
+      <h2>Users</h2>
 
-      {/* 🔍 Global Search */}
+   
       <input
         type="text"
-        placeholder="Search projects..."
+        placeholder="Search by Name..."
         value={globalFilter ?? ""}
         onChange={(e) => setGlobalFilter(e.target.value)}
         className="search-input"
       />
 
-      {/* 🎯 Column Filter: Priority */}
       <div className="filter-controls">
         <label>
-          Filter by Priority:
+          Filter by Status:
           <select
             value={
               table
-                .getColumn("priority")
+                .getColumn("status")
                 ?.getFilterValue() ?? ""
             }
             onChange={(e) =>
-              table.getColumn("priority")?.setFilterValue(e.target.value || undefined)
+              table.getColumn("status")?.setFilterValue(e.target.value || undefined)
             }
           >
             <option value="">All</option>
-            <option value="Low">Low</option>
-            <option value="High">High</option>
-            <option value="Urgent">Urgent</option>
+            <option value="suspended">Suspended</option>
+            <option value="active">Active</option>
+            
           </select>
         </label>
       </div>
-
+      
+      <div className="table-responsive">
       <table className="projects-table">
         <thead>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -196,8 +200,8 @@ const ActiveProjects = () => {
           ))}
         </tbody>
       </table>
+      </div>
 
-      {/* ⏮️ Pagination */}
       <div className="pagination-controls">
         <button
           onClick={() => table.previousPage()}

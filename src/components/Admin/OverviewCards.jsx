@@ -3,17 +3,17 @@ import "./OverviewCards.css";
 
 const OverviewCards = () => {
   const cards = [
-    { title: "Projects", value: 18, sub: "2 Completed" },
-    { title: "Active Task", value: 132, sub: "28 Completed" },
-    { title: "Teams", value: 12, sub: "1 Completed" },
-    { title: "Productivity", value: "76%", sub: "5% Completed" },
+    { title: "Total Users", value: 132, sub: "2 Completed" },
+    { title: "Banned Users", value: 13, sub: "28 Completed" },
+    { title: "Total Polls", value: 1200, sub: "1 Completed" },
+    { title: "Frozen Polls", value: 10, sub: "5% Completed" },
   ];
 
   return (
     <div className="overview-cards">
       <div className="card-header">
         <h2>Admin Dashboard</h2>
-        <div className="create-project-btn">Create New Project</div>
+        <div className="create-project-btn">New</div>
       </div>
 
       <div className="card-container">

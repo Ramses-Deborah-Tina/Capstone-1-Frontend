@@ -26,19 +26,28 @@
   .projects-table th,
   .projects-table td {
     text-align: left;
-    padding: 0.75rem;
+    padding: 1.3rem;
     border-bottom: 1px solid #eee;
   }
   
-  .priority-tag {
-    background: #e0f2fe;
-    color: #0284c7;
-    padding: 0.25rem 0.5rem;
+
+  .status-tag-suspended {
+    background: #feeeef;
+    color: #ee536b;
+    padding: 0.5rem 0.5rem;
     font-size: 0.8rem;
-    border-radius: 5px;
+    border-radius: 8cm;
   }
   
-  .members {
+  .status-tag-active {
+    background: #e4faee;
+    color: #31a36f;
+    padding: 0.5rem 0.5rem;
+    font-size: 0.8rem;
+    border-radius: 8px;
+  }
+  
+  .email {
     display: flex;
     gap: 0.25rem;
   }
@@ -110,5 +119,24 @@
     margin-left: 0.5rem;
     padding: 0.4rem;
     border-radius: 4px;
+  }
+  
+
+  .user-cell {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  
+  .user-name {
+    font-weight: 500;
+    color: #2d3748; /* dark gray */
   }
   
