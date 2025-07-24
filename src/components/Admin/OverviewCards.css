@@ -72,3 +72,36 @@
   margin-left: auto;
   height: 40px;
 }
+
+@media (max-width: 768px) {
+  .card-header {
+    flex-direction: column;
+    align-items: flex-start;
+    height: auto;
+    gap: 0.5rem;
+  }
+
+  .create-project-btn {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .card-container {
+    position: static;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 1rem 0;
+    gap: 1rem;
+  }
+
+  .card {
+    flex: 0 1 100%;
+    min-width: unset;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .overview-cards {
+    padding-bottom: 2rem;
+  }
+}

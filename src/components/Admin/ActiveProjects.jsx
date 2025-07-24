@@ -71,10 +71,14 @@ const columns = [
     header: "Name",
     cell: (info) => {
       const name = info.getValue();
-  
+
       return (
         <div className="user-cell">
-          <img src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png" alt="avatar" className="user-avatar" />
+          <img
+            src="https://cdn-icons-png.flaticon.com/512/3607/3607444.png"
+            alt="avatar"
+            className="user-avatar"
+          />
           <span className="user-name">{name}</span>
         </div>
       );
@@ -86,18 +90,16 @@ const columns = [
   }),
   columnHelper.accessor("email", {
     header: "Email",
-    cell: (info) => (
-      <div className="email">
-        {info.getValue()}
-      </div>
-    ),
+    cell: (info) => <div className="email">{info.getValue()}</div>,
     enableColumnFilter: false,
   }),
   columnHelper.accessor("status", {
     header: "Status",
     cell: (info) =>
       info.getValue() ? (
-        <span className={`status-tag-${info.getValue().toLowerCase()}`}>{info.getValue()}</span>
+        <span className={`status-tag-${info.getValue().toLowerCase()}`}>
+          {info.getValue()}
+        </span>
       ) : null,
     filterFn: "includesString",
   }),
@@ -105,9 +107,7 @@ const columns = [
     header: "Actions",
     cell: (info) => {
       const value = info.getValue();
-      return (
-        <ToggleBtn initialStatus={value}/>
-      );
+      return <ToggleBtn initialStatus={value} />;
     },
     enableColumnFilter: false,
   }),
@@ -140,90 +140,90 @@ const ActiveProjects = () => {
   return (
     <div className="active-projects">
       <div className="table-holder">
-      <h2>Users</h2>
+        <h2>Users</h2>
 
-   
-      <input
-        type="text"
-        placeholder="Search by Name..."
-        value={globalFilter ?? ""}
-        onChange={(e) => setGlobalFilter(e.target.value)}
-        className="search-input"
-      />
+        <input
+          type="text"
+          placeholder="Search by Name..."
+          value={globalFilter ?? ""}
+          onChange={(e) => setGlobalFilter(e.target.value)}
+          className="search-input"
+        />
 
-      <div className="filter-controls">
-        <label>
-          Filter by Status:
-          <select
-            value={
-              table
-                .getColumn("status")
-                ?.getFilterValue() ?? ""
-            }
-            onChange={(e) =>
-              table.getColumn("status")?.setFilterValue(e.target.value || undefined)
-            }
+        <div className="filter-controls">
+          <label>
+            Filter by Status:
+            <select
+              value={table.getColumn("status")?.getFilterValue() ?? ""}
+              onChange={(e) =>
+                table
+                  .getColumn("status")
+                  ?.setFilterValue(e.target.value || undefined)
+              }
+            >
+              <option value="">All</option>
+              <option value="suspended">Suspended</option>
+              <option value="active">Active</option>
+            </select>
+          </label>
+        </div>
+
+        <div className="table-responsive">
+          <table className="projects-table">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr key={headerGroup.id}>
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id}>
+                      {flexRender(
+                        header.column.columnDef.header,
+                        header.getContext()
+                      )}
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getRowModel().rows.map((row) => (
+                <tr key={row.id}>
+                  {row.getVisibleCells().map((cell) => (
+                    <td key={cell.id} data-label={cell.column.columnDef.header}>
+                      {flexRender(
+                        cell.column.columnDef.cell,
+                        cell.getContext()
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+
+        <div className="pagination-controls">
+          <button
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
           >
-            <option value="">All</option>
-            <option value="suspended">Suspended</option>
-            <option value="active">Active</option>
-            
-          </select>
-        </label>
-      </div>
-      
-      <div className="table-responsive">
-      <table className="projects-table">
-        <thead>
-          {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id}>
-              {headerGroup.headers.map((header) => (
-                <th key={header.id}>
-                  {flexRender(
-                    header.column.columnDef.header,
-                    header.getContext()
-                  )}
-                </th>
-              ))}
-            </tr>
-          ))}
-        </thead>
-        <tbody>
-          {table.getRowModel().rows.map((row) => (
-            <tr key={row.id}>
-              {row.getVisibleCells().map((cell) => (
-                <td key={cell.id}>
-                  {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                </td>
-              ))}
-            </tr>
-          ))}
-        </tbody>
-      </table>
-      </div>
+            Previous
+          </button>
 
-      <div className="pagination-controls">
-        <button
-          onClick={() => table.previousPage()}
-          disabled={!table.getCanPreviousPage()}
-        >
-          Previous
-        </button>
+          <span>
+            Page{" "}
+            <strong>
+              {table.getState().pagination.pageIndex + 1} of{" "}
+              {table.getPageCount()}
+            </strong>
+          </span>
 
-        <span>
-          Page{" "}
-          <strong>
-            {table.getState().pagination.pageIndex + 1} of {table.getPageCount()}
-          </strong>
-        </span>
-
-        <button
-          onClick={() => table.nextPage()}
-          disabled={!table.getCanNextPage()}
-        >
-          Next
-        </button>
-      </div>
+          <button
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );
