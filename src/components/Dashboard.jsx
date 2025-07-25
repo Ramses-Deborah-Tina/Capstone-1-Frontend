@@ -4,7 +4,7 @@ import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 import { API_URL } from "../shared";
 
-const Account = () => {
+const Dashboard = () => {
   const [polls, setPolls] = useState([]);
   const [statusFilter, setStatusFilter] = useState("all");
   const [search, setSearch] = useState("");
@@ -142,4 +142,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default Dashboard;
