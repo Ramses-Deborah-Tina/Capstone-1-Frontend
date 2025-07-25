@@ -17,7 +17,7 @@ import NotFound from "./components/NotFound";
 import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile";
-import Dashboard from "./components/dashboard";
+import Dashboard from "./components/Dashboard";
 import Result from "./components/ResultPage/Results.jsx";
 
 const App = ({ user, setUser }) => {
