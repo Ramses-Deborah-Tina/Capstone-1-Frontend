@@ -1,27 +1,33 @@
-import React, {useEffect, useState} from "react";
-import {useParams, useNavigate} from "react-router-dom";
+import React, { useEffect, useState, useRef } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
-import {DragDropContext, Droppable, Draggable} from "react-beautiful-dnd";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+
+const API_BASE = import.meta.env.VITE_API_BASE_URL;
 
 const VotingPage = () => {
   const { pollId } = useParams();
   const navigate = useNavigate();
 
-  const [poll, setPoll] = useState(null); // no data, forced to load new data
+  const [poll, setPoll] = useState(null);
   const [ranking, setRanking] = useState([]);
   const [hasVoted, setHasVoted] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [email, setEmail] = useState("");
   const [emailSubmitted, setEmailSubmitted] = useState(false);
   const [error, setError] = useState(null);
+  const [warning, setWarning] = useState(false);
+
+  const warningRef = useRef(null);
 
   useEffect(() => {
     const fetchPoll = async () => {
       try {
-        const { data } = await axios.get(`/api/polls/${pollId}`);
+        const { data } = await axios.get(`${API_BASE}/api/polls/${pollId}`);
         setPoll(data);
-        setRanking(data.options); // initial order
+        setRanking(data.options || []);
       } catch (err) {
+        console.error("Fetch poll error:", err);
         setError("Failed to load poll.");
       }
     };
@@ -38,13 +44,27 @@ const VotingPage = () => {
     setRanking(items);
   };
 
+  const isRankingComplete = () => {
+    return ranking.length >= 2 && ranking.every((opt) => opt.id);
+  };
+
   const handleVoteSubmit = async (e) => {
     e.preventDefault();
     if (hasVoted || !poll) return;
 
+    if (!isRankingComplete()) {
+      setWarning(true);
+      setTimeout(() => {
+        warningRef.current?.scrollIntoView({ behavior: "smooth", block: "center" });
+      }, 100);
+      return;
+    } else {
+      setWarning(false);
+    }
+
     try {
       const rankedOptionIds = ranking.map((opt) => opt.id);
-      await axios.post(`/api/ballots`, {
+      await axios.post(`${API_BASE}/api/ballots`, {
         pollId: poll.id,
         votes: rankedOptionIds,
       });
@@ -52,7 +72,7 @@ const VotingPage = () => {
       setSubmitted(true);
       setHasVoted(true);
     } catch (err) {
-      console.error(err);
+      console.error("Vote submit error:", err);
       setError("Vote submission failed.");
     }
   };
@@ -62,14 +82,14 @@ const VotingPage = () => {
     if (!email || !pollId) return;
 
     try {
-      await axios.post(`/api/subscribe-results`, {
+      await axios.post(`${API_BASE}/api/subscribe-results`, {
         pollId,
         email,
       });
       setEmailSubmitted(true);
-      setTimeout(() => navigate("/dashboard"), 2000);
+setTimeout(() => navigate("/dashboard"), 2000);   // This line was changed to go with the account page for now, can be renamed to dashboard later
     } catch (err) {
-      console.error(err);
+      console.error("Email submit error:", err);
       setError("Failed to save email.");
     }
   };
@@ -89,6 +109,12 @@ const VotingPage = () => {
       </p>
 
       {hasVoted && <div className="already-voted-msg">You've already voted.</div>}
+
+      {warning && (
+        <div className="vote-warning" ref={warningRef}>
+          ⚠️ You have not ranked all options. You may still submit your vote.
+        </div>
+      )}
 
       {!submitted && (
         <form onSubmit={handleVoteSubmit}>
