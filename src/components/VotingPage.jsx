@@ -87,7 +87,7 @@ const VotingPage = () => {
         email,
       });
       setEmailSubmitted(true);
-setTimeout(() => navigate("/account"), 2000);   // This line was changed to go with the account page for now, can be renamed to dashboard later
+setTimeout(() => navigate("/dashboard"), 2000);   // This line was changed to go with the account page for now, can be renamed to dashboard later
     } catch (err) {
       console.error("Email submit error:", err);
       setError("Failed to save email.");
