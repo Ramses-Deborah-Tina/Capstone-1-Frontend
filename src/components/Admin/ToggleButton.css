@@ -7,15 +7,15 @@
     transition: all 0.3s ease;
   }
   
-  /* Reactivate (Active) — green outline */
+  
   .user-action-button.active {
-    border: 2px solid #38a169;     /* green */
+    border: 2px solid #38a169;   
     color: #38a169;
   }
   
-  /* Suspend (Suspended) — red outline */
+ 
   .user-action-button.suspended {
-    border: 2px solid #e53e3e;      /* red */
+    border: 2px solid #e53e3e;   
     color: #e53e3e;
   }
   

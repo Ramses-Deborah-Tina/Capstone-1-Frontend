@@ -76,6 +76,13 @@
   gap: 10px;
 }
 
+.user-name {
+  font-weight: 500;
+  color: #2563eb;
+  cursor: pointer;
+  text-decoration: none;
+}
+
 .user-avatar {
   width: 32px;
   height: 32px;
@@ -260,3 +267,5 @@
 
 
 }
+
+

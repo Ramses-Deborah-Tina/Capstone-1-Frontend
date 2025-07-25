@@ -14,6 +14,7 @@ import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile"; 
 import Dashboard from "./components/dashboard";
 import Admin from "./components/Admin/Admin.jsx";
+import UserPolls from "./components/Admin/Users/UserPolls.jsx";
 
 
 const App = ({ user, setUser }) => {
@@ -64,6 +65,7 @@ const App = ({ user, setUser }) => {
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/admin/users/:userId" element={<UserPolls />} />
           <Route path="/profile" element={<Profile user={user} setUser={setUser} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
