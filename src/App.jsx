@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { createRoot } from "react-dom/client";
 import axios from "axios";
 import "./AppStyles.css";
@@ -18,8 +18,9 @@ import { API_URL } from "./shared";
 import { AuthProvider } from "./components/AuthContext";
 import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
-import ProtectedRoute from "./components/ProtectedRoute"; 
-import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breath on it please 🙏
+import Result from "./components/ResultPage/Results.jsx";
+import ProtectedRoute from "./components/ProtectedRoute";
+import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breathe on it please 🙏
 
 // Main App component with routing and logic
 const App = ({ user, setUser }) => {
@@ -62,7 +63,7 @@ const App = ({ user, setUser }) => {
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
           
-          {/* ✅ Protected route added here for Profile */}
+          {/* ✅ Protected route for Profile */}
           <Route
             path="/profile"
             element={
@@ -71,6 +72,9 @@ const App = ({ user, setUser }) => {
               </ProtectedRoute>
             }
           />
+
+          {/* ✅ Public route for Result page */}
+          <Route path="/result" element={<Result />} />
 
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -83,7 +87,6 @@ const App = ({ user, setUser }) => {
 const Root = () => {
   const [user, setUser] = useState(null);
 
-  // Use environment variables via process.env (Webpack + dotenv-webpack)
   const domain = process.env.VITE_AUTH0_DOMAIN;
   const clientId = process.env.VITE_AUTH0_CLIENT_ID;
   const audience = process.env.VITE_AUTH0_AUDIENCE;
@@ -109,3 +112,4 @@ const Root = () => {
 
 const root = createRoot(document.getElementById("root"));
 root.render(<Root />);
+
