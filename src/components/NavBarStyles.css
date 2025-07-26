@@ -1,72 +1,91 @@
+/* Container for the trapezoid navbar */
+.navbar-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  transition: transform 0.3s ease;
+}
+
+/* The trapezoid background */
 .navbar {
+  background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  clip-path: polygon(0 0, 100% 0, 95% 100%, 5% 100%);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background-color: #f8f9fa;
-  padding: 1rem 2rem;
-  border-bottom: 1px solid #e9ecef;
+  padding: 1rem 3rem;
+  transition: all 0.4s ease;
+  transform: translateY(-10px); /* slide up by default */
 }
 
-.nav-brand a {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
-  text-decoration: none;
+.navbar:hover {
+  transform: translateY(0); /* slide down on hover */
 }
 
-.nav-brand a:hover {
-  color: #007bff;
-}
-
+/* Navigation links */
 .nav-links {
   display: flex;
-  align-items: center;
+  gap: 1.5rem;
+  position: relative;
+  left: -80px; /* ← EDIT HERE: move links left, try -20px, -60px, etc. */
 }
 
-.auth-links {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-}
-
+/* All link styles */
 .nav-link {
-  color: #666;
+  color: #ffffff;
   text-decoration: none;
+  font-size: 0.85rem;
+  transition: font-size 0.3s ease, transform 0.3s ease;
+}
+
+/* Enlarge text on hover of whole nav */
+.navbar:hover .nav-link {
+  font-size: 1rem;
+  transform: scale(1.05);
+}
+
+/* Auth buttons (Sign Up & Login) */
+.auth-link-button {
+  background-color: transparent;
+  color: #ffffff;
+  border: 1px solid #66fcf1;
   padding: 0.5rem 1rem;
-  border-radius: 4px;
-  transition: all 0.2s;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
 }
 
-.nav-link:hover {
-  color: #007bff;
-  background-color: #e9ecef;
+.auth-link-button:hover {
+  background-color: #66fcf1;
+  color: #0f2027;
+  border-color: #66fcf1;
 }
 
-.user-section {
+/* Group all auth buttons together */
+.auth-buttons {
   display: flex;
-  align-items: center;
   gap: 1rem;
 }
 
-.username {
-  color: #666;
-  font-weight: 500;
-}
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    clip-path: none;
+    border-radius: 0 0 12px 12px;
+  }
 
-.logout-btn {
-  background-color: #dc3545;
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 0.875rem;
-  transition: background-color 0.2s;
-}
+  .nav-links,
+  .auth-buttons {
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
 
-.logout-btn:hover {
-  background-color: #c82333;
+  .nav-links {
+    left: 0; /* reset left shift on small screens */
+  }
 }

@@ -20,7 +20,9 @@ import Profile from "./components/Profile";
 import Dashboard from "./components/Dashboard";
 import Result from "./components/ResultPage/Results.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
+import Footer from "./components/Footer";
 import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breathe on it please 🙏
+import Reviews from "./components/Reviews";
 
 // Main App component with routing and logic
 const App = ({ user, setUser }) => {
@@ -62,7 +64,7 @@ const App = ({ user, setUser }) => {
           <Route path="/create" element={<Create setUser={setUser} />} />
           <Route exact path="/" element={<Home />} />
           <Route path="/dashboard" element={<Dashboard />} />
-          
+
           {/* ✅ Protected route for Profile */}
           <Route
             path="/profile"
@@ -75,9 +77,14 @@ const App = ({ user, setUser }) => {
 
           {/* ✅ Public route for Result page */}
           <Route path="/result" element={<Result />} />
-
           <Route path="*" element={<NotFound />} />
         </Routes>
+
+        {/* Reviews inserted just above Footer */}
+        <Reviews />
+
+        {/* Footer */}
+        <Footer />
       </div>
     </div>
   );
@@ -112,4 +119,3 @@ const Root = () => {
 
 const root = createRoot(document.getElementById("root"));
 root.render(<Root />);
-

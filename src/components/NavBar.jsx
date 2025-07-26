@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import "./NavBarStyles.css";
 
 const NavBar = ({ user, onLogout }) => {
   const { isAuthenticated, user: auth0User, logout: auth0Logout, isLoading } = useAuth0();
+  const [isHovered, setIsHovered] = useState(false); // State to track hover
 
   const handleLogout = () => {
     if (isAuthenticated) {
@@ -19,9 +20,16 @@ const NavBar = ({ user, onLogout }) => {
     : user?.username;
 
   return (
-    <nav className="navbar">
+    <nav
+      className={`navbar ${isHovered ? "hovered" : "idle"}`} // Apply class based on hover state
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
       <div className="nav-brand">
-        <Link to="/">Instapoll</Link>
+        {/* Always show "Instapoll" text and its logo, do not replace or change */}
+        <Link to="/">
+          <span className="instapoll-logo">📊</span>Instapoll
+        </Link>
       </div>
 
       <div className="nav-links">
@@ -52,7 +60,9 @@ const NavBar = ({ user, onLogout }) => {
           </div>
         ) : (
           <div className="user-section">
-            <span className="username">Welcome, {displayName}!</span>
+            <span className="username">
+              Welcome, {displayName}!
+            </span>
             <button onClick={handleLogout} className="logout-btn">
               Logout
             </button>
