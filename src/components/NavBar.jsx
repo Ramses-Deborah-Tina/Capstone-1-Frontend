@@ -1,12 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import ThemeToggle from './ThemeToggle';
 import "./NavBarStyles.css";
 
 const NavBar = ({ user, onLogout }) => {
   return (
     <nav className="navbar">
       <div className="nav-brand">
-        <Link to="/">Instapoll</Link>
+        <Link to="/">InstaPoll</Link>
       </div>
       <div className="nav-links">
         {/* Always show Home and Create a Poll */}
@@ -40,6 +41,7 @@ const NavBar = ({ user, onLogout }) => {
             </button>
           </div>
         )}
+        <ThemeToggle />
       </div>
     </nav>
   );
