@@ -2,42 +2,47 @@ import React, { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import axios from "axios";
 import { API_URL } from "../shared";
+import { useAuth0 } from "@auth0/auth0-react";
 import "./AuthStyles.css";
 
 const Login = ({ setUser }) => {
-  const [formData, setFormData] = useState({
-    username: "",
-    password: "",
-  });
+  const [formData, setFormData] = useState({ username: "", password: "" });
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
+  const {
+    loginWithRedirect,
+    isLoading: auth0Loading,
+    error: auth0Error,
+  } = useAuth0();
+
   const validateForm = () => {
     const newErrors = {};
-
-    if (!formData.username) {
-      newErrors.username = "Username is required";
-    } else if (formData.username.length < 3 || formData.username.length > 20) {
-      newErrors.username = "Username must be between 3 and 20 characters";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "Password is required";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
-
+    if (!formData.username) newErrors.username = "Username is required";
+    if (!formData.password) newErrors.password = "Password is required";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+
+    if (errors[name]) {
+      setErrors((prev) => ({
+        ...prev,
+        [name]: "",
+      }));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    if (!validateForm()) {
-      return;
-    }
+    if (!validateForm()) return;
 
     setIsLoading(true);
     try {
@@ -48,30 +53,17 @@ const Login = ({ setUser }) => {
       setUser(response.data.user);
       navigate("/");
     } catch (error) {
-      if (error.response?.data?.error) {
-        setErrors({ general: error.response.data.error });
-      } else {
-        setErrors({ general: "An error occurred during login" });
-      }
+      setErrors({
+        general:
+          error.response?.data?.error || "An error occurred during login",
+      });
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    // Clear error when user starts typing
-    if (errors[name]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
+  const handleAuth0Login = () => {
+    loginWithRedirect();
   };
 
   return (
@@ -93,6 +85,7 @@ const Login = ({ setUser }) => {
               value={formData.username}
               onChange={handleChange}
               className={errors.username ? "error" : ""}
+              autoComplete="username"
             />
             {errors.username && (
               <span className="error-text">{errors.username}</span>
@@ -108,6 +101,7 @@ const Login = ({ setUser }) => {
               value={formData.password}
               onChange={handleChange}
               className={errors.password ? "error" : ""}
+              autoComplete="current-password"
             />
             {errors.password && (
               <span className="error-text">{errors.password}</span>
@@ -119,8 +113,24 @@ const Login = ({ setUser }) => {
           </button>
         </form>
 
+        <hr className="divider" />
+
+        <div className="auth0-login">
+          <p>Or log in with:</p>
+          {auth0Error && (
+            <div className="error-message">Auth0 Error: {auth0Error.message}</div>
+          )}
+          <button
+            onClick={handleAuth0Login}
+            className="auth0-button"
+            disabled={auth0Loading}
+          >
+            {auth0Loading ? "Redirecting..." : "Login with Auth0"}
+          </button>
+        </div>
+
         <p className="auth-link">
-          Don't have an account? <Link to="/signup">Sign up</Link>
+          Don’t have an account? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     </div>
@@ -128,3 +138,4 @@ const Login = ({ setUser }) => {
 };
 
 export default Login;
+
