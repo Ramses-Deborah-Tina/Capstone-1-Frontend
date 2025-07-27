@@ -1,11 +1,15 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { AuthContext } from "../components/AuthContext";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import "./CreateStyles.css"; // Assuming you have a CSS file for styles
 
 const initialQuestions = [{ questionTitle: "", options: ["", ""] }];
 const initialDuration = "";
+
+// Background SVG pattern encoded as URL string (same as in your app)
+const backgroundPatternUrl = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='100' viewBox='0 0 600 100'%3E%3Crect fill='%23ffffff' width='600' height='100'/%3E%3Cg stroke='%23FFF' stroke-width='0' stroke-miterlimit='10'%3E%3Ccircle fill='%23037B79' cx='0' cy='0' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='100' cy='0' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='200' cy='0' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='300' cy='0' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='400' cy='0' r='50'/%3E%3Ccircle fill='%23006EB4' cx='500' cy='0' r='50'/%3E%3Ccircle fill='%23037B79' cx='600' cy='0' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='-50' cy='50' r='50'/%3E%3Ccircle fill='%2353AC9A' cx='50' cy='50' r='50'/%3E%3Ccircle fill='%23CEEDC1' cx='150' cy='50' r='50'/%3E%3Ccircle fill='%23FFFFFF' cx='250' cy='50' r='50'/%3E%3Ccircle fill='%239DE0FE' cx='350' cy='50' r='50'/%3E%3Ccircle fill='%233E9CDA' cx='450' cy='50' r='50'/%3E%3Ccircle fill='%2300789C' cx='550' cy='50' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='650' cy='50' r='50'/%3E%3Ccircle fill='%23037B79' cx='0' cy='100' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='100' cy='100' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='200' cy='100' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='300' cy='100' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='400' cy='100' r='50'/%3E%3Ccircle fill='%23006EB4' cx='500' cy='100' r='50'/%3E%3Ccircle fill='%23037B79' cx='600' cy='100' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='50' cy='150' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='150' cy='150' r='50'/%3E%3Ccircle fill='%239DE0FE' cx='250' cy='150' r='50'/%3E%3Ccircle fill='%2353AC9A' cx='350' cy='150' r='50'/%3E%3Ccircle fill='%23CEEDC1' cx='450' cy='150' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='550' cy='150' r='50'/%3E%3C/g%3E%3C/svg%3E`;
 
 const Create = () => {
   const { isLoggedIn } = useContext(AuthContext);
@@ -18,6 +22,15 @@ const Create = () => {
   const [duration, setDuration] = useState(initialDuration);
   const [createdPollId, setCreatedPollId] = useState(null);
   const [message, setMessage] = useState("");
+
+  // Apply background pattern on mount, clean up on unmount
+  useEffect(() => {
+    document.body.style.setProperty("--bg-pattern", `url("${backgroundPatternUrl}")`);
+
+    return () => {
+      document.body.style.removeProperty("--bg-pattern");
+    };
+  }, []);
 
   // Handle changes
   const handleQuestionChange = (qIdx, value) => {
@@ -135,7 +148,12 @@ const Create = () => {
     return (
       <div className="login-prompt">
         <h2>You must be logged in to create a poll.</h2>
-        <Link to="/login" className="login-link">Go to Login</Link>
+        <button
+          className="login-link"
+          onClick={() => navigate("/login")}
+        >
+          Go to Login
+        </button>
       </div>
     );
   }

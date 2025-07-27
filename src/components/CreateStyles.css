@@ -1,160 +1,32 @@
-/* Create Component Styles */
-
-.create-poll-form {
-  max-width: 700px;
-  margin: 2rem auto;
-  padding: 2rem;
-  background: #f9f9f9;
-  border-radius: 12px;
-  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #333;
-}
-
-.create-poll-form h2 {
-  text-align: center;
-  margin-bottom: 1.5rem;
-  color: #222;
-}
-
-.form-group {
-  margin-bottom: 1.5rem;
-}
-
-.form-group label {
-  display: block;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.form-group input[type="number"],
-.question-block input[type="text"],
-.option-block input[type="text"] {
-  width: 100%;
-  padding: 0.5rem 0.75rem;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-group input[type="number"]:focus,
-.question-block input[type="text"]:focus,
-.option-block input[type="text"]:focus {
-  border-color: #007bff;
-  outline: none;
-}
-
-.question-block {
-  background: white;
-  padding: 1rem 1.5rem;
-  border-radius: 12px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-}
-
-.option-block {
-  margin-top: 0.75rem;
-}
-
-.btn {
-  cursor: pointer;
-  padding: 0.5rem 1rem;
-  border-radius: 8px;
-  border: none;
-  font-weight: 600;
-  font-size: 0.95rem;
-  margin-right: 0.5rem;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  filter: brightness(0.9);
-}
-
-.btn:disabled,
-.btn[disabled] {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.btn-add-option {
-  background-color: #28a745;
-  color: white;
-}
-
-.btn-delete-option {
-  background-color: #dc3545;
-  color: white;
-}
-
-.btn-add-question {
-  background-color: #007bff;
-  color: white;
-}
-
-.btn-save-draft {
-  background-color: #6c757d;
-  color: white;
-}
-
-.btn-publish {
-  background-color: #17a2b8;
-  color: white;
-}
-
-.btn-delete-draft {
-  background-color: #fd7e14;
-  color: white;
-}
-
-.btn-duplicate-poll {
-  background-color: #6610f2;
-  color: white;
-}
-
-.form-actions {
-  text-align: center;
-  margin-top: 1.5rem;
-}
-
-.form-message {
-  margin-top: 1rem;
-  font-weight: 600;
-  text-align: center;
-  color: #28a745;
-}
-
-/* Login prompt styling */
 .login-prompt {
-  max-width: 400px;
-  margin: 4rem auto;
-  padding: 2rem;
-  background: #fff3cd;
-  border: 1px solid #ffeeba;
+  background-color: white;
   border-radius: 12px;
+  padding: 2rem;
+  max-width: 400px;
+  margin: 5rem auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   text-align: center;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #856404;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  margin-top: 7rem;
 }
 
 .login-prompt h2 {
-  margin-bottom: 1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-size: 1.5rem;
 }
 
 .login-link {
   display: inline-block;
-  padding: 0.5rem 1rem;
-  background-color: #ffc107;
-  color: #856404;
-  border-radius: 8px;
-  font-weight: 600;
+  background-color: #90ee90; /* Light green */
+  color: #000;
+  padding: 0.6rem 1.2rem;
+  border-radius: 6px;
   text-decoration: none;
+  font-weight: 600;
   transition: background-color 0.3s ease;
 }
 
 .login-link:hover {
-  background-color: #e0a800;
-  color: #fff;
+  background-color: #4aa4ff; /* Blue on hover */
+  color: white;
 }

@@ -5,7 +5,12 @@ import { ThemeContext } from "./ThemeContext";
 import "./NavBarStyles.css";
 
 const NavBar = ({ user, onLogout }) => {
-  const { isAuthenticated, user: auth0User, logout: auth0Logout, isLoading } = useAuth0();
+  const {
+    isAuthenticated,
+    user: auth0User,
+    logout: auth0Logout,
+    isLoading,
+  } = useAuth0();
   const [isHovered, setIsHovered] = useState(false);
   const { theme, toggleTheme } = useContext(ThemeContext);
 
@@ -40,18 +45,29 @@ const NavBar = ({ user, onLogout }) => {
       </div>
 
       <div className="nav-links">
-        <Link to="/" className="nav-link">Home</Link>
-        <Link to="/create" className="nav-link">Create a Poll</Link>
+        <Link to="/" className="nav-link">
+          Home
+        </Link>
+        <Link to="/create" className="nav-link">
+          Create a Poll
+        </Link>
 
         {(user || isAuthenticated) && (
-          <Link to="/dashboard" className="nav-link">Dashboard</Link>
+          <Link to="/dashboard" className="nav-link">
+            Dashboard
+          </Link>
         )}
 
         {!user && !isAuthenticated && !isLoading ? (
           <div className="auth-links">
-            <Link to="/signup" className="nav-link">Sign Up</Link>
+            {/* UPDATED LINKS TO MATCH YOUR APP ROUTES */}
+            <Link to="/signup" className="nav-link">
+              Sign Up
+            </Link>
             <div className="login-slider-container">
-              <Link to="/login" className="nav-link">Login</Link>
+              <Link to="/login" className="nav-link">
+                Login
+              </Link>
               <label className="switch">
                 <input
                   type="checkbox"
@@ -65,7 +81,9 @@ const NavBar = ({ user, onLogout }) => {
         ) : (
           <div className="user-section">
             <span className="username">Welcome, {displayName}!</span>
-            <button onClick={handleLogout} className="logout-btn">Logout</button>
+            <button onClick={handleLogout} className="logout-btn">
+              Logout
+            </button>
             <label className="switch" style={{ marginLeft: "10px" }}>
               <input
                 type="checkbox"

@@ -8,9 +8,9 @@ import {
   Routes,
   Route,
   useNavigate,
+  //useLocation,
 } from "react-router-dom";
-import Login from "./components/Login";
-import Signup from "./components/Signup";
+import AuthForm from "./components/AuthForm";
 import Create from "./components/Create";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
@@ -21,11 +21,13 @@ import Dashboard from "./components/Dashboard";
 import Result from "./components/ResultPage/Results.jsx";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
-import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breathe on it please 🙏
+import { Auth0Provider } from "@auth0/auth0-react";
 import Reviews from "./components/Reviews";
-import { ThemeProvider } from "./components/ThemeContext"; // Import ThemeProvider
+import { ThemeProvider } from "./components/ThemeContext";
 
-// Main App component with routing and logic
+// Background pattern URL (you can move this somewhere common if you want)
+const backgroundPatternUrl = `data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='100' viewBox='0 0 600 100'%3E%3Crect fill='%23ffffff' width='600' height='100'/%3E%3Cg stroke='%23FFF' stroke-width='0' stroke-miterlimit='10'%3E%3Ccircle fill='%23037B79' cx='0' cy='0' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='100' cy='0' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='200' cy='0' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='300' cy='0' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='400' cy='0' r='50'/%3E%3Ccircle fill='%23006EB4' cx='500' cy='0' r='50'/%3E%3Ccircle fill='%23037B79' cx='600' cy='0' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='-50' cy='50' r='50'/%3E%3Ccircle fill='%2353AC9A' cx='50' cy='50' r='50'/%3E%3Ccircle fill='%23CEEDC1' cx='150' cy='50' r='50'/%3E%3Ccircle fill='%23FFFFFF' cx='250' cy='50' r='50'/%3E%3Ccircle fill='%239DE0FE' cx='350' cy='50' r='50'/%3E%3Ccircle fill='%233E9CDA' cx='450' cy='50' r='50'/%3E%3Ccircle fill='%2300789C' cx='550' cy='50' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='650' cy='50' r='50'/%3E%3Ccircle fill='%23037B79' cx='0' cy='100' r='50'/%3E%3Ccircle fill='%2392DEBA' cx='100' cy='100' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='200' cy='100' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='300' cy='100' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='400' cy='100' r='50'/%3E%3Ccircle fill='%23006EB4' cx='500' cy='100' r='50'/%3E%3Ccircle fill='%23037B79' cx='600' cy='100' r='50'/%3E%3Ccircle fill='%23CAF2FF' cx='50' cy='150' r='50'/%3E%3Ccircle fill='%236FCCFF' cx='150' cy='150' r='50'/%3E%3Ccircle fill='%239DE0FE' cx='250' cy='150' r='50'/%3E%3Ccircle fill='%2353AC9A' cx='350' cy='150' r='50'/%3E%3Ccircle fill='%23CEEDC1' cx='450' cy='150' r='50'/%3E%3Ccircle fill='%23FFFFD8' cx='550' cy='150' r='50'/%3E%3C/g%3E%3C/svg%3E`;
+
 const App = ({ user, setUser }) => {
   const navigate = useNavigate();
 
@@ -43,6 +45,13 @@ const App = ({ user, setUser }) => {
 
   useEffect(() => {
     checkAuth();
+
+    // Set the background pattern once when App mounts
+    document.body.style.setProperty("--bg-pattern", `url("${backgroundPatternUrl}")`);
+
+    return () => {
+      document.body.style.removeProperty("--bg-pattern");
+    };
   }, []);
 
   const handleLogout = async () => {
@@ -61,13 +70,17 @@ const App = ({ user, setUser }) => {
         <NavBar user={user} onLogout={handleLogout} />
         <div className="app">
           <Routes>
-            <Route path="/login" element={<Login setUser={setUser} />} />
-            <Route path="/signup" element={<Signup setUser={setUser} />} />
+            <Route
+              path="/login"
+              element={<AuthForm setUser={setUser} mode="login" />}
+            />
+            <Route
+              path="/signup"
+              element={<AuthForm setUser={setUser} mode="signup" />}
+            />
             <Route path="/create" element={<Create setUser={setUser} />} />
-            <Route exact path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/dashboard" element={<Dashboard />} />
-
-            {/* ✅ Protected route for Profile */}
             <Route
               path="/profile"
               element={
@@ -76,16 +89,11 @@ const App = ({ user, setUser }) => {
                 </ProtectedRoute>
               }
             />
-
-            {/* ✅ Public route for Result page */}
             <Route path="/result" element={<Result />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
 
-          {/* Reviews inserted just above Footer */}
           <Reviews />
-
-          {/* Footer */}
           <Footer />
         </div>
       </div>
@@ -93,7 +101,6 @@ const App = ({ user, setUser }) => {
   );
 };
 
-// Root component with providers (Auth0, Router, Auth Context)
 const Root = () => {
   const [user, setUser] = useState(null);
 

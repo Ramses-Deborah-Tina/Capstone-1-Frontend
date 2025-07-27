@@ -14,7 +14,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-bottom: 16px; /* ↓ spacing under header */
+  padding-bottom: 16px;
   border-bottom: 1px solid #d3f3ec;
 }
 
@@ -30,11 +30,10 @@ body {
   font-weight: 500;
 }
 
-
 /* === MAIN CONTENT CONTAINER === */
 .home-section {
   min-height: 100vh;
-  padding: 5px 178px; /* ↑↓ ←→ spacing around section */
+  padding: 5px 178px;
   display: flex;
   flex-direction: column;
   background-color: transparent;
@@ -47,7 +46,7 @@ body {
   gap: 32px;
   align-items: center;
   justify-content: center;
-  margin-top: 0px; /* ↑ Use this to move all content up/down */
+  margin-top: 0px;
 }
 
 @media (min-width: 768px) {
@@ -58,14 +57,12 @@ body {
   }
 }
 
-
 /* === LEFT SIDE (TEXT) === */
 .home-left {
   max-width: 600px;
-  margin-top: 0px;     /* ↑↓ Move the entire text block up/down */
-  margin-left: 0px;    /* ←→ Move the entire text block left/right */
+  margin-top: 0px;
+  margin-left: 0px;
 }
-
 
 /* === RIGHT SIDE (IMAGE) === */
 .home-right {
@@ -73,9 +70,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 0px;     /* ↑↓ Move image section up/down */
+  margin-top: 0px;
 }
-
 
 /* === IMAGE ITSELF === */
 .home-img {
@@ -84,18 +80,17 @@ body {
   height: auto;
   object-fit: contain;
   border-radius: 16px;
-  margin-left: 0px;    /* ←→ Shift image left/right */
-  margin-top: 0px;     /* ↑↓ Shift image up/down */
+  margin-left: 0px;
+  margin-top: 0px;
 }
-
 
 /* === TEXT STYLES === */
 .headline {
-  font-size: 64px;       /* Text size */
+  font-size: 64px;
   font-weight: 800;
   line-height: 1.2;
-  margin-bottom: 24px;   /* ↓ Distance from subtext */
-  margin-top: 0px;       /* ↑ Use to move headline lower/higher */
+  margin-bottom: 24px;
+  margin-top: 0px;
 }
 
 @media (max-width: 768px) {
@@ -108,20 +103,18 @@ body {
   font-size: 24px;
   line-height: 1.8;
   color: #f0f0f0;
-  margin-top: 0px;       /* ↑ Move text up */
-  margin-bottom: 32px;   /* ↓ Space before buttons */
+  margin-top: 0px;
+  margin-bottom: 32px;
   max-width: 90%;
 }
-
 
 /* === BUTTON GROUP === */
 .home-buttons {
   display: flex;
   gap: 16px;
-  margin-top: 0px;        /* ↑↓ Adjust vertical spacing of button row */
-  justify-content: center; /* ←→ Align buttons: left, center, or right */
+  margin-top: 0px;
+  justify-content: center;
 }
-
 
 /* === INDIVIDUAL BUTTON STYLES === */
 .create-btn {
@@ -140,20 +133,20 @@ body {
 }
 
 .browse-btn {
-  border: 2px solid #2a2a2a;
-  color: #2a2a2a;
+  background-color: transparent;
+  color: white;
   padding: 12px 24px;
   font-weight: 600;
+  border: 2px solid white;
   border-radius: 8px;
   text-decoration: none;
-  transition: background 0.2s ease, color 0.2s ease;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .browse-btn:hover {
-  background-color: #e7fcf8;
-  color: #289d86;
+  background-color: #cceeff; /* light blue */
+  color: #0077cc;
 }
-
 
 /* === THEME TEXT COLOR SWITCHES === */
 body.light .headline,
@@ -167,19 +160,21 @@ body.dark .subtext {
 }
 
 body.light .browse-btn {
-  border: 2px solid #f0f0f0;
-}
-
-body.dark .browse-btn {
   border: 2px solid #2a2a2a;
+  color: #2a2a2a;
+  background-color: transparent;
 }
 
+body.light .browse-btn:hover {
+  background-color: #e0f7ff;
+  color: #0077cc;
+}
 
 /* === LOGO SECTION === */
 .logo-container {
   display: flex;
   align-items: center;
-  gap: 8px; /* Space between logo image and text */
+  gap: 8px;
 }
 
 .logo-img {
