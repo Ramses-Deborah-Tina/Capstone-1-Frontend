@@ -26,50 +26,33 @@ const NavBar = ({ user, onLogout }) => {
   };
 
   return (
-    <div className="navbar-container">
-      <div
-        className={`navbar-bg ${isHovered ? "hovered" : ""}`}
-      ></div>
+    <div
+      className={`navbar-container ${isHovered ? "hovered" : ""}`}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+    >
+      {/* You can remove the navbar-bg div entirely or handle background in CSS */}
 
-      <nav
-        className={`navbar ${isHovered ? "hovered" : ""}`}
-        onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
-      >
-        <div className="nav-brand">
-          <Link to="/">
-            <span className="instapoll-logo">📊</span>Instapoll
-          </Link>
-        </div>
+      <div className="nav-brand">
+        <Link to="/">
+          <span className="instapoll-logo">📊</span>Instapoll
+        </Link>
+      </div>
 
-        <div className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/create" className="nav-link">Create a Poll</Link>
+      <div className="nav-links">
+        <Link to="/" className="nav-link">Home</Link>
+        <Link to="/create" className="nav-link">Create a Poll</Link>
 
-          {(user || isAuthenticated) && (
-            <Link to="/dashboard" className="nav-link">Dashboard</Link>
-          )}
+        {(user || isAuthenticated) && (
+          <Link to="/dashboard" className="nav-link">Dashboard</Link>
+        )}
 
-          {!user && !isAuthenticated && !isLoading ? (
-            <div className="auth-links">
-              <Link to="/signup" className="nav-link">Sign Up</Link>
-              <div className="login-slider-container">
-                <Link to="/login" className="nav-link">Login</Link>
-                <label className="switch">
-                  <input
-                    type="checkbox"
-                    checked={theme === "dark"}
-                    onChange={handleThemeChange}
-                  />
-                  <span className="slider round"></span>
-                </label>
-              </div>
-            </div>
-          ) : (
-            <div className="user-section">
-              <span className="username">Welcome, {displayName}!</span>
-              <button onClick={handleLogout} className="logout-btn">Logout</button>
-              <label className="switch" style={{ marginLeft: "10px" }}>
+        {!user && !isAuthenticated && !isLoading ? (
+          <div className="auth-links">
+            <Link to="/signup" className="nav-link">Sign Up</Link>
+            <div className="login-slider-container">
+              <Link to="/login" className="nav-link">Login</Link>
+              <label className="switch">
                 <input
                   type="checkbox"
                   checked={theme === "dark"}
@@ -78,9 +61,22 @@ const NavBar = ({ user, onLogout }) => {
                 <span className="slider round"></span>
               </label>
             </div>
-          )}
-        </div>
-      </nav>
+          </div>
+        ) : (
+          <div className="user-section">
+            <span className="username">Welcome, {displayName}!</span>
+            <button onClick={handleLogout} className="logout-btn">Logout</button>
+            <label className="switch" style={{ marginLeft: "10px" }}>
+              <input
+                type="checkbox"
+                checked={theme === "dark"}
+                onChange={handleThemeChange}
+              />
+              <span className="slider round"></span>
+            </label>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
