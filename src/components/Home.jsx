@@ -35,8 +35,8 @@ const Home = () => {
 
   // Use your illustration images depending on theme
   const illustration = theme === "dark"
-    ? require("./assets/illustration-dark.png")
-    : require("./assets/illustration-light.png");
+    ? require("./assets/illustration-light.png")
+    : require("./assets/illustration-dark.png");
 
   return (
     <div className="home-section">
