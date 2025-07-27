@@ -12,7 +12,7 @@ module.exports = {
   },
   devtool: "source-map",
   plugins: [
-    new Dotenv(), //  Loads all .env variables (including VITE_AUTH0_DOMAIN etc.)
+    new Dotenv(), // Loads all .env variables (including VITE_AUTH0_DOMAIN etc.)
     new webpack.EnvironmentPlugin({
       API_URL: "http://localhost:8080", // fallback if .env doesn't provide it
     }),
@@ -32,6 +32,10 @@ module.exports = {
       {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
+      },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: "asset/resource",
       },
     ],
   },

@@ -23,6 +23,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Footer from "./components/Footer";
 import { Auth0Provider } from "@auth0/auth0-react"; //  Auth0 Import do not remove or touch, lets not even breathe on it please 🙏
 import Reviews from "./components/Reviews";
+import { ThemeProvider } from "./components/ThemeContext"; // Import ThemeProvider
 
 // Main App component with routing and logic
 const App = ({ user, setUser }) => {
@@ -55,38 +56,40 @@ const App = ({ user, setUser }) => {
   };
 
   return (
-    <div>
-      <NavBar user={user} onLogout={handleLogout} />
-      <div className="app">
-        <Routes>
-          <Route path="/login" element={<Login setUser={setUser} />} />
-          <Route path="/signup" element={<Signup setUser={setUser} />} />
-          <Route path="/create" element={<Create setUser={setUser} />} />
-          <Route exact path="/" element={<Home />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+    <ThemeProvider>
+      <div>
+        <NavBar user={user} onLogout={handleLogout} />
+        <div className="app">
+          <Routes>
+            <Route path="/login" element={<Login setUser={setUser} />} />
+            <Route path="/signup" element={<Signup setUser={setUser} />} />
+            <Route path="/create" element={<Create setUser={setUser} />} />
+            <Route exact path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
-          {/* ✅ Protected route for Profile */}
-          <Route
-            path="/profile"
-            element={
-              <ProtectedRoute>
-                <Profile user={user} setUser={setUser} />
-              </ProtectedRoute>
-            }
-          />
+            {/* ✅ Protected route for Profile */}
+            <Route
+              path="/profile"
+              element={
+                <ProtectedRoute>
+                  <Profile user={user} setUser={setUser} />
+                </ProtectedRoute>
+              }
+            />
 
-          {/* ✅ Public route for Result page */}
-          <Route path="/result" element={<Result />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+            {/* ✅ Public route for Result page */}
+            <Route path="/result" element={<Result />} />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
 
-        {/* Reviews inserted just above Footer */}
-        <Reviews />
+          {/* Reviews inserted just above Footer */}
+          <Reviews />
 
-        {/* Footer */}
-        <Footer />
+          {/* Footer */}
+          <Footer />
+        </div>
       </div>
-    </div>
+    </ThemeProvider>
   );
 };
 

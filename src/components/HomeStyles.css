@@ -1,131 +1,195 @@
-/* HomeStyles.css */
-.home-container {
+/* === GLOBAL STYLES === */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Inter", sans-serif;
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* === HEADER SECTION === */
+.home-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 16px; /* ↓ spacing under header */
+  border-bottom: 1px solid #d3f3ec;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  color: #2a2a2a;
+}
+
+.login-link {
+  text-decoration: none;
+  color: #f0f0f0;
+  font-weight: 500;
+}
+
+
+/* === MAIN CONTENT CONTAINER === */
+.home-section {
+  min-height: 100vh;
+  padding: 5px 178px; /* ↑↓ ←→ spacing around section */
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+}
+
+.home-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0px; /* ↑ Use this to move all content up/down */
+}
+
+@media (min-width: 768px) {
+  .home-content {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+
+/* === LEFT SIDE (TEXT) === */
+.home-left {
+  max-width: 600px;
+  margin-top: 0px;     /* ↑↓ Move the entire text block up/down */
+  margin-left: 0px;    /* ←→ Move the entire text block left/right */
+}
+
+
+/* === RIGHT SIDE (IMAGE) === */
+.home-right {
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh; /* Adjusted for better vertical centering */
-  padding: 2rem;
-  /* New background gradient */
-  background: linear-gradient(135deg, #8A2387, #E94057, #F27121); /* A vibrant, warm gradient */
-  background-size: 400% 400%; /* For animation */
-  animation: backgroundAnimation 15s ease infinite alternate; /* Smooth background animation */
+  margin-top: 0px;     /* ↑↓ Move image section up/down */
 }
 
-@keyframes backgroundAnimation {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
+
+/* === IMAGE ITSELF === */
+.home-img {
+  width: auto;
+  max-width: 400px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 16px;
+  margin-left: 0px;    /* ←→ Shift image left/right */
+  margin-top: 0px;     /* ↑↓ Shift image up/down */
 }
 
-.home-card {
-  background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.25);
-  border-radius: 25px; /* Slightly more rounded */
-  padding: 3.5rem 4.5rem; /* Increased padding */
-  text-align: center;
-  backdrop-filter: blur(15px); /* Stronger blur effect */
-  -webkit-backdrop-filter: blur(15px);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); /* More prominent shadow */
-  color: #ffffff;
-  max-width: 500px; /* Slightly wider card */
-  width: 100%;
-  transition: transform 0.3s ease-in-out; /* Add transition for hover effect */
+
+/* === TEXT STYLES === */
+.headline {
+  font-size: 64px;       /* Text size */
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 24px;   /* ↓ Distance from subtext */
+  margin-top: 0px;       /* ↑ Use to move headline lower/higher */
 }
 
-.home-card:hover {
-  transform: translateY(-5px); /* Slight lift on hover */
+@media (max-width: 768px) {
+  .headline {
+    font-size: 38px;
+  }
 }
 
-.poll-icon {
-  margin-bottom: 1.5rem;
-  color: #c2fbd7; /* Accent color for the icon */
-  animation: bounceIn 1s ease-out; /* Animation for the icon */
+.subtext {
+  font-size: 24px;
+  line-height: 1.8;
+  color: #f0f0f0;
+  margin-top: 0px;       /* ↑ Move text up */
+  margin-bottom: 32px;   /* ↓ Space before buttons */
+  max-width: 90%;
 }
 
-@keyframes bounceIn {
-  0% { transform: scale(0.3); opacity: 0; }
-  50% { transform: scale(1.1); opacity: 1; }
-  70% { transform: scale(0.9); }
-  100% { transform: scale(1); }
-}
 
-.home-card h1 {
-  font-size: 3rem; /* Larger headline */
-  margin-bottom: 1rem;
-  color: #ffffff;
-  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* Stronger text shadow */
-  letter-spacing: 1px;
-}
-
-.home-subtitle {
-  font-size: 1.25rem; /* Subtitle font size */
-  margin-bottom: 2.5rem;
-  color: rgba(255, 255, 255, 0.9);
-  line-height: 1.5;
-}
-
+/* === BUTTON GROUP === */
 .home-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 1.2rem; /* Increased gap between buttons */
+  gap: 16px;
+  margin-top: 0px;        /* ↑↓ Adjust vertical spacing of button row */
+  justify-content: center; /* ←→ Align buttons: left, center, or right */
 }
 
-.home-buttons button {
-  padding: 1.1rem 2.5rem; /* Larger buttons */
-  font-size: 1.1rem; /* Larger font size for buttons */
-  font-weight: 700; /* Bolder text */
+
+/* === INDIVIDUAL BUTTON STYLES === */
+.create-btn {
+  background-color: #33c4aa;
+  color: white;
+  padding: 12px 24px;
+  font-weight: 600;
   border: none;
-  border-radius: 15px; /* More rounded buttons */
-  cursor: pointer;
-  background: linear-gradient(45deg, #66fcf1, #45a29e); /* Gradient background for buttons */
-  color: #0b0c10; /* Darker text for contrast */
-  transition: all 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Button shadow */
-  text-transform: uppercase; /* Uppercase text */
-  letter-spacing: 0.5px;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease;
 }
 
-.home-buttons button:hover {
-  background: linear-gradient(45deg, #45a29e, #66fcf1); /* Reverse gradient on hover */
-  transform: translateY(-3px); /* Lift button on hover */
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+.create-btn:hover {
+  background-color: #2ca991;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .home-card {
-    padding: 2.5rem 3rem;
-  }
-
-  .home-card h1 {
-    font-size: 2.2rem;
-  }
-
-  .home-subtitle {
-    font-size: 1rem;
-  }
-
-  .home-buttons button {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-  }
+.browse-btn {
+  border: 2px solid #2a2a2a;
+  color: #2a2a2a;
+  padding: 12px 24px;
+  font-weight: 600;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
 }
 
-@media (max-width: 480px) {
-  .home-card {
-    padding: 2rem 1.5rem;
-    border-radius: 20px;
-  }
+.browse-btn:hover {
+  background-color: #e7fcf8;
+  color: #289d86;
+}
 
-  .home-card h1 {
-    font-size: 1.8rem;
-  }
 
-  .home-subtitle {
-    font-size: 0.9rem;
-  }
+/* === THEME TEXT COLOR SWITCHES === */
+body.light .headline,
+body.light .subtext {
+  color: #2a2a2a;
+}
 
-  .home-buttons button {
-    padding: 0.9rem 1.5rem;
-    font-size: 0.9rem;
-  }
+body.dark .headline,
+body.dark .subtext {
+  color: #f0f0f0;
+}
+
+body.light .browse-btn {
+  border: 2px solid #f0f0f0;
+}
+
+body.dark .browse-btn {
+  border: 2px solid #2a2a2a;
+}
+
+
+/* === LOGO SECTION === */
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Space between logo image and text */
+}
+
+.logo-img {
+  width: 50px;
+  height: 50px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 700;
+  color: #f0f0f0;
+  margin: 0;
 }

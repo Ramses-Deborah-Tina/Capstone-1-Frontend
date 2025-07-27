@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import React, { createContext, useContext } from "react";
 
 // Create the context
 export const AuthContext = createContext();
@@ -14,5 +14,7 @@ export const AuthProvider = ({ user, setUser, children }) => {
   );
 };
 
-
-
+// Custom hook to use the AuthContext easily
+export const useAuth = () => {
+  return useContext(AuthContext);
+};
