@@ -190,12 +190,12 @@ input {
 
 .auth0-button {
   margin-top: 10px;
-  background-color: #4267B2;
+  background-color: #168aad;
   border-color: #4267B2;
 }
 
 .auth0-button:hover {
-  background-color: #365899;
+  background-color: #76c893;
 }
 
 .error-message {
