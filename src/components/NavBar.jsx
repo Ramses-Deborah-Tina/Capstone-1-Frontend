@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ThemeContext } from "./ThemeContext";
 import "./NavBarStyles.css";
-import logoDark from "./assets/logo.png";     // now dark mode logo
-import logoLight from "./assets/logo2.png";   // now light mode logo
+import logoDark from "./assets/logo.jpg";     // now dark mode logo
+import logoLight from "./assets/logo2.jpg";   // now light mode logo
 
 const NavBar = ({ user, onLogout }) => {
   const {
