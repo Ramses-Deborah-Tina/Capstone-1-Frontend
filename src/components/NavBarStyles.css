@@ -193,3 +193,12 @@ input:checked + .slider:before {
   font-weight: bold;
   vertical-align: middle;
 }
+
+
+.user-section .username {
+  font-weight: 600;       /* Same weight as nav links */
+  font-size: 1rem;        /* Increase size to match nav-link text */
+  color: white;           /* Explicit white color */
+  margin-right: 12px;     /* Space between username and logout button */
+  white-space: nowrap;    /* Prevent the welcome text from wrapping */
+}
