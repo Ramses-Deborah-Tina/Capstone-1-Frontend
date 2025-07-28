@@ -17,16 +17,19 @@
 
 .login-link {
   display: inline-block;
-  background-color: #90ee90; /* Light green */
-  color: #000;
+  background-color: #f77f00; /* Lighter green */
+  color: white;
   padding: 0.6rem 1.2rem;
   border-radius: 6px;
+  border: none; /* Removes default border, including any red outline */
   text-decoration: none;
   font-weight: 600;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  cursor: pointer;
 }
 
 .login-link:hover {
   background-color: #4aa4ff; /* Blue on hover */
   color: white;
 }
+

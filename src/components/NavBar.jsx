@@ -1,9 +1,10 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ThemeContext } from "./ThemeContext";
 import "./NavBarStyles.css";
-import logo from "./assets/logo.png"; // Adjust path if needed
+import logoDark from "./assets/logo.png";     // now dark mode logo
+import logoLight from "./assets/logo2.png";   // now light mode logo
 
 const NavBar = ({ user, onLogout }) => {
   const {
@@ -31,6 +32,15 @@ const NavBar = ({ user, onLogout }) => {
     toggleTheme();
   };
 
+  // Switched logic: logo2.png is now used for light mode
+  const currentLogo = theme === "dark" ? logoDark : logoLight;
+
+  // Optional: preload both logos to prevent flicker
+  useEffect(() => {
+    const preload = new Image();
+    preload.src = theme === "dark" ? logoDark : logoLight;
+  }, [theme]);
+
   return (
     <div
       className={`navbar-container ${isHovered ? "hovered" : ""}`}
@@ -39,7 +49,7 @@ const NavBar = ({ user, onLogout }) => {
     >
       <div className="nav-brand">
         <Link to="/">
-          <img src={logo} alt="Logo" className="logo-image" />
+          <img src={currentLogo} alt="Logo" className="logo-image" />
           <span className="instapoll-text">Instapoll</span>
         </Link>
       </div>
