@@ -178,3 +178,18 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%; /* Round knob */
 }
+
+
+
+.logo-image {
+  height: 1.8rem; /* Matches font-size of Instapoll text */
+  margin-right: 0.5rem; /* Spacing between logo and text */
+  vertical-align: middle;
+}
+
+.instapoll-text {
+  color: white;
+  font-size: 1.8rem;
+  font-weight: bold;
+  vertical-align: middle;
+}

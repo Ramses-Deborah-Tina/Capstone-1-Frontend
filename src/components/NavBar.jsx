@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import { ThemeContext } from "./ThemeContext";
 import "./NavBarStyles.css";
+import logo from "./assets/logo.png"; // Adjust path if needed
 
 const NavBar = ({ user, onLogout }) => {
   const {
@@ -36,11 +37,10 @@ const NavBar = ({ user, onLogout }) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      {/* You can remove the navbar-bg div entirely or handle background in CSS */}
-
       <div className="nav-brand">
         <Link to="/">
-          <span className="instapoll-logo">📊</span>Instapoll
+          <img src={logo} alt="Logo" className="logo-image" />
+          <span className="instapoll-text">Instapoll</span>
         </Link>
       </div>
 
@@ -60,7 +60,6 @@ const NavBar = ({ user, onLogout }) => {
 
         {!user && !isAuthenticated && !isLoading ? (
           <div className="auth-links">
-            {/* UPDATED LINKS TO MATCH YOUR APP ROUTES */}
             <Link to="/signup" className="nav-link">
               Sign Up
             </Link>
