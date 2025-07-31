@@ -1,22 +1,21 @@
 const path = require("path");
 const webpack = require("webpack");
-require("dotenv").config();
+const Dotenv = require("dotenv-webpack");
 
 module.exports = {
-  mode: "development",
+  mode: process.env.NODE_ENV === "production" ? "production" : "development",
   entry: "./src/App.jsx",
   output: {
     path: path.resolve(__dirname, "dist"),
     filename: "main.js",
-    publicPath: "/", // needed for React Router
+    publicPath: "/", // Ensure this matches your deployment root path
+    clean: true,    // Clean old files in dist on build (Webpack 5 feature)
   },
-  devtool: "source-map",
+  devtool: process.env.NODE_ENV === "production" ? false : "source-map", // Disable source maps in prod for smaller builds
   plugins: [
+    new Dotenv(), // Loads .env variables
     new webpack.EnvironmentPlugin({
-      API_URL: "http://localhost:8080",
-      REACT_APP_AUTH0_DOMAIN: "",
-      REACT_APP_AUTH0_CLIENT_ID: "",
-      REACT_APP_AUTH0_AUDIENCE: "",
+      API_URL: "http://localhost:8080", // fallback if .env doesn't provide it
     }),
   ],
   module: {
@@ -35,6 +34,13 @@ module.exports = {
         test: /\.css$/,
         use: ["style-loader", "css-loader"],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg)$/i,
+        type: "asset/resource",
+        generator: {
+          filename: "assets/[hash][ext][query]", // Place images in assets folder with hashed names for cache busting
+        },
+      },
     ],
   },
   resolve: {
@@ -45,9 +51,6 @@ module.exports = {
       directory: path.join(__dirname, "dist"),
     },
     compress: true,
-    historyApiFallback: true,
     port: 3000,
-    host: "127.0.0.1",  // Serve at 127.0.0.1
-    open: true,         // Auto-open browser
   },
 };
