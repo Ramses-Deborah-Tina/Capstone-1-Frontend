@@ -10,12 +10,13 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Home from "./components/Home";
 import NotFound from "./components/NotFound";
+import CallBack from "./components/CallBack";
 import { API_URL } from "./shared";
 import { Auth0Provider, useAuth0 } from "@auth0/auth0-react";
 
 // Replace these with your Auth0 domain and client ID
-const AUTH0_DOMAIN = "dev-m71z1z5w3vgzg8av.us.auth0.com"; 
-const AUTH0_CLIENT_ID = "dev-m71z1z5w3vgzg8av.us.auth0.com";
+const AUTH0_DOMAIN = "dev-m71z1z5w3vgzg8av.us.auth0.com";
+const AUTH0_CLIENT_ID = "qhqEo3tGexhy8VRLbVR1OiSv2KGuadlh";
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -72,7 +73,7 @@ const App = () => {
         <Routes>
           <Route path="/login" element={<Login setUser={setUser} />} />
           <Route path="/signup" element={<Signup setUser={setUser} />} />
-          <Route path="/callback" element={<div>Logging in...</div>} />
+          <Route path="/callback" element={<CallBack />} />
           <Route exact path="/" element={<Home />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
@@ -84,13 +85,14 @@ const App = () => {
 const Root = () => {
   return (
     <Auth0Provider
-      domain={AUTH0_DOMAIN}
-      clientId={AUTH0_CLIENT_ID}
-      authorizationParams={{
-        redirect_uri: window.location.origin + "/callback",
-      }}
-      cacheLocation="localstorage" // optional: persist login across tabs and reloads
-    >
+  domain={AUTH0_DOMAIN}
+  clientId={AUTH0_CLIENT_ID}
+  authorizationParams={{
+    redirectUri: window.location.origin + "/callback",
+  }}
+  cacheLocation="localstorage"
+>
+
       <Router>
         <App />
       </Router>
